@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 //!!!!!!In order to access player names this class needs to be extended!!!!!!!
-public class Allocation implements Data{
+public class Allocation {
 
     private final String player1, player2;
     private ArrayList<String> player1Countries = new ArrayList<String>();
@@ -34,7 +34,7 @@ public class Allocation implements Data{
 
     private void assign(List randomize) {
         //this if statement makes sure that there are an equal number of assigned countries in total. This is because there are two odd continent sizes.
-        if(randomize.size() == Europe.length) {
+        if(randomize.size() == Constants.EUROPE.length) {
             for(int i = 0; i < randomize.size(); i++) {
                 if(i % 2 == 0) {
                     player2Countries.add((String) randomize.get(i));
@@ -56,7 +56,7 @@ public class Allocation implements Data{
 
     public void assignCountries() {
         //first copy array of countries by continent into list, shuffle and then assign half to each. Two odd continents so one player gets extra for one continent.
-        String[][] continents = {NorthAmerica, Europe, Asia, Africa, Australia, SouthAmerica};
+        String[][] continents = {Constants.NORTH_AMERICA, Constants.EUROPE, Constants.ASIA, Constants.AFRICA, Constants.AUSTRALIA, Constants.SOUTH_AMERICA};
         for(String[] i : continents) {
             List<String> randomize = Arrays.asList(i);
             Collections.shuffle(randomize);
@@ -64,11 +64,4 @@ public class Allocation implements Data{
         }
     }
 
-    public static void main(String[] args) {
-        Allocation yo = new Allocation("Hassan", "Denzel");
-        yo.assignCountries();
-        System.out.println(yo.player1Countries);
-        System.out.println(yo.player1Countries.size());
-        System.out.println(yo.player2Countries.size());
-    }
 }

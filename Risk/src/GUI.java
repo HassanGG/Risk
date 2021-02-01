@@ -26,4 +26,5 @@ public class GUI extends JFrame{
         this.add(updateBox,BorderLayout.EAST);
         this.add(inputBox,BorderLayout.SOUTH);
     }
+
 }
