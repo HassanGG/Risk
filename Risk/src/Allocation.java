@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 //!!!!!!In order to access player names this class needs to be extended!!!!!!!
-public class Allocation {
+public class Allocation implements Allocate {
 
     private final String player1, player2;
     private ArrayList<String> player1Countries = new ArrayList<String>();
