@@ -25,4 +25,5 @@ public class GUI extends JFrame{
         this.add(inputBox);
 
     }
+
 }

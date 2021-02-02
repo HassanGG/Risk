@@ -15,6 +15,12 @@ public class Constants {
 			"E Australia","New Guinea","W Australia","Indonesia",
 			"Venezuela","Peru","Brazil","Argentina",
 			"Congo","N Africa","S Africa","Egypt","E Africa","Madagascar"};  // for reference
+	public static final String[] NORTH_AMERICA = {"alaska", "alberta", "central america", "eastern united states", "greenland", "northwest territory", "ontario", "quebec", "western united states"};
+	public static final String[] SOUTH_AMERICA = {"argentina", "brazil", "peru", "venezuela"};
+	public static final String[] EUROPE = {"Great Britain", "Iceland", "Northern Europe", "Scandinavia", "Southern Europe", "Ukraine", "Western Europe"};
+	public static final String[] AFRICA = {"Congo", "East Africa", "Egypt", "Madagascar", "North Africa", "South Africa"};
+	public static final String[] ASIA = {"Afghanistan", "China", "India", "Irkutsk", "Japan", "Kamchatka", "MiddleEast", "Mongolia", "Siam", "Siberia", "Ural", "Yakutsk"};
+	public static final String[] AUSTRALIA = {"Eastern Australia", "Indonesia", "New Guinea", "Western Australia"};
 	public static final int[][] ADJACENT = {
 			{4,1,5,6,3,2},    // 0
 			{4,5,0},
