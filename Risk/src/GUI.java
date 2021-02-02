@@ -6,24 +6,23 @@ public class GUI extends JFrame{
         this.setTitle("Risk");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setLayout(new BorderLayout());
         this.setSize(1300,850);
-        this.setVisible(true);
 
-        JPanel playBox = new JPanel();
+
+        Map map = new Map();
         JPanel updateBox = new JPanel();
         JPanel inputBox = new JPanel();
 
-        playBox.setBackground(Color.CYAN);
         updateBox.setBackground(Color.LIGHT_GRAY);
-        inputBox.setBackground(Color.WHITE);
+        inputBox.setBackground(Color.BLACK);
 
-        playBox.setPreferredSize(new Dimension(1000,600));
-        updateBox.setPreferredSize(new Dimension(300,600));
-        inputBox.setPreferredSize(new Dimension(1250,250));
+        map.setBounds(0,0,1000,600);
+        updateBox.setBounds(1000,0,300,600);
+        inputBox.setBounds(0,600,1300,250);
 
-        this.add(playBox,BorderLayout.WEST);
-        this.add(updateBox,BorderLayout.EAST);
-        this.add(inputBox,BorderLayout.SOUTH);
+        this.add(map);
+        this.add(updateBox);
+        this.add(inputBox);
+
     }
 }

@@ -109,4 +109,8 @@ public class Constants {
 			{547,432},        // 40
 			{586,545}
 	};
+
+	public static int[][] getCountryCoord() {
+		return COUNTRY_COORD;
+	}
 }
