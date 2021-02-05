@@ -121,4 +121,7 @@ public class Constants {
 	public static int[][] getCountryCoord() {
 		return COUNTRY_COORD;
 	}
+	public static int[] getContinentIds() {
+		return CONTINENT_IDS;
+	}
 }
