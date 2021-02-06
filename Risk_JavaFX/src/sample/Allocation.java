@@ -68,12 +68,18 @@ public class Allocation implements Allocate {
         for(int i = 0; i < randomize.size(); i++) {
             whichPlayer = i % 2;
             switch (whichPlayer) {
-                case 0 -> player1Countries.add(randomize.get(i));
-                case 1 -> player2Countries.add(randomize.get(i));
-                case 2 -> neutral1Countries.add(randomize.get(i));
-                case 3 -> neutral2Countries.add(randomize.get(i));
-                case 4 -> neutral3Countries.add(randomize.get(i));
-                case 5 -> neutral4Countries.add(randomize.get(i));
+                case 0: player1Countries.add(randomize.get(i));
+                    break;
+                case 1: player2Countries.add(randomize.get(i));
+                    break;
+                case 2: neutral1Countries.add(randomize.get(i));
+                    break;
+                case 3: neutral2Countries.add(randomize.get(i));
+                    break;
+                case 4: neutral3Countries.add(randomize.get(i));
+                    break;
+                case 5: neutral4Countries.add(randomize.get(i));
+                    break;
             }
         }
     }
