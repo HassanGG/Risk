@@ -56,8 +56,7 @@ public class Controller implements Initializable {
             }
         }
 
-        listOutput += "Please enter name for Player 1\n";
-        outputText.setText(listOutput);
+        outputText.appendText("Please enter name for Player 1\n");
         inputText.setOnAction(e ->{
             strInput = inputText.getText();
             parseInput();
@@ -72,19 +71,17 @@ public class Controller implements Initializable {
             case 0:
                 //gets player 1 name from input
                 player1 = strInput;
-                listOutput += "Please enter name for Player 2\n";
-                outputText.setText(listOutput);
+                outputText.appendText("Please enter name for Player 2\n");
                 inputText.setText("");
                 break;
 
             case 1: {
-                //assigns countries to each player after getting player 2 name
                 player2 = strInput;
-                listOutput += "player1: " + player1 + "\nplayer2: " + player2 + "\n";
+                outputText.appendText("player 1: " + player1 + "\nplayer 2: " + player2 + "\n");
                 inputText.setText("");
                 allocate = new Allocation(player1, player2);
                 allocate.assignCountries();
-                outputText.setText(listOutput);
+                printAllocation(allocate);
                 break;
             }
         }
@@ -103,5 +100,14 @@ public class Controller implements Initializable {
         string += "\n";
 
         outputText.appendText(string);
+    }
+
+    private void printAllocation(Allocate allocate) {
+        outputText.appendText(allocate.getPLAYER1() + "'s countries: " + allocate.getPlayer1Countries().toString() + "\n");
+        outputText.appendText(allocate.getPLAYER2() + "'s countries: " + allocate.getPlayer2Countries().toString() + "\n");
+        outputText.appendText("Neutral Countries: \n" + allocate.getNeutral1Countries().toString() + "\n");
+        outputText.appendText(allocate.getNeutral2Countries().toString() + "\n");
+        outputText.appendText(allocate.getNeutral3Countries().toString() + "\n");
+        outputText.appendText(allocate.getNeutral4Countries().toString() + "\n");
     }
 }

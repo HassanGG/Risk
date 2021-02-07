@@ -7,10 +7,10 @@ import java.util.ArrayList;
 //allocation.assignCountries();
 public interface Allocate {
     //gets the name of the first player
-    public String getPlayer1();
+    public String getPLAYER1();
 
     //gets the name of the second player
-    public String getPlayer2();
+    public String getPLAYER2();
 
     //get each player
     public ArrayList<String> getNeutral1Countries();

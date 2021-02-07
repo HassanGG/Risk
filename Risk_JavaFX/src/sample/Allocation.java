@@ -8,7 +8,7 @@ import java.util.List;
 //!!!!!!In order to access player names this class needs to be extended!!!!!!!
 public class Allocation implements Allocate {
 
-    private final String player1, player2;
+    private final String PLAYER1, PLAYER2;
 
     private ArrayList<String> player1Countries = new ArrayList<String>();
     private ArrayList<String> player2Countries = new ArrayList<String>();
@@ -20,16 +20,16 @@ public class Allocation implements Allocate {
 
     //player names will decided in another class or in main
     public Allocation(String player1, String player2) {
-        this.player1 = player1;
-        this.player2 = player2;
+        this.PLAYER1 = player1;
+        this.PLAYER2 = player2;
     }
 
-    public String getPlayer1() {
-        return player1;
+    public String getPLAYER1() {
+        return PLAYER1;
     }
 
-    public String getPlayer2() {
-        return player2;
+    public String getPLAYER2() {
+        return PLAYER2;
     }
 
     public ArrayList<String> getPlayer1Countries() {
@@ -65,8 +65,14 @@ public class Allocation implements Allocate {
 
         //assign the countries to each player
         int whichPlayer = 0;
+        final int POINT_WHEN_PLAYERS_GET_MORE = 36;
         for(int i = 0; i < randomize.size(); i++) {
-            whichPlayer = i % 2;
+            if(i > POINT_WHEN_PLAYERS_GET_MORE) {
+                whichPlayer = i % 2;
+            } else {
+                whichPlayer = i % 6;
+            }
+
             switch (whichPlayer) {
                 case 0: player1Countries.add(randomize.get(i));
                     break;
