@@ -1,9 +1,26 @@
 .root{
-    -fx-background-color: #BFEFFF;
+    -fx-background-color: #5089FA;
 }
 
 .button{
-    -fx-background-radius: 22;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 50;
+    -fx-text-fill: #000000;
 }
 
+.text-area{
+    -fx-text-fill: #000000;
+    -fx-border-width: 2px;
+    -fx-border-color: #000000;
+}
+
+.text-area .content {
+    -fx-background-color: #FBCE8F;
+}
+
+.text-field{
+    -fx-background-color: #C7712C;
+    -fx-prompt-text-fill: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-border-width: 2px;
+    -fx-border-color: #000000;
+}

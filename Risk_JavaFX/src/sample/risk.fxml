@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <ImageView fitHeight="358.0" fitWidth="382.0" layoutX="14.0" layoutY="16.0">
+         <image>
+            <Image url="@../NA.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="273.0" fitWidth="177.0" layoutX="179.0" layoutY="343.0">
+         <image>
+            <Image url="@../SA.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="285.0" fitWidth="236.0" layoutX="393.0" layoutY="327.0">
+         <image>
+            <Image url="@../Africa.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="262.0" fitWidth="274.0" layoutX="360.0" layoutY="85.0">
+         <image>
+            <Image url="@../EU.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="367.0" fitWidth="407.0" layoutX="510.0" layoutY="50.0">
+         <image>
+            <Image url="@../Asia.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="193.0" fitWidth="228.0" layoutX="717.0" layoutY="419.0">
+         <image>
+            <Image url="@../Australia.png" />
+         </image>
+      </ImageView>
+      <Pane prefHeight="650.0" prefWidth="1000.0">
+         <children>
+            <Button fx:id="ontario" layoutX="191.0" layoutY="150.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="11">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="190.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ontario">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="quebec" layoutX="255.0" layoutY="161.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="254.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quebec">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="nwTerritory" layoutX="146.0" layoutY="86.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="134.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NW Territory">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="alberta" layoutX="123.0" layoutY="144.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="123.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alberta">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="greenland" alignment="CENTER" layoutX="314.0" layoutY="61.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="308.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Greenland">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="eastUS" alignment="CENTER" layoutX="205.0" layoutY="235.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="203.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="East U.S.">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="westUS" alignment="CENTER" layoutX="135.0" layoutY="219.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="131.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="West U.S.">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="centralAmerica" alignment="CENTER" layoutX="140.0" layoutY="299.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="133.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C. America">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="alaska" alignment="CENTER" layoutX="45.0" layoutY="89.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="47.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alaska">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="greatBritain" alignment="CENTER" layoutX="370.0" layoutY="199.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="359.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Great Britain">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="westEU" alignment="CENTER" layoutX="398.0" layoutY="280.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="394.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="West E.U.">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="southEU" alignment="CENTER" layoutX="465.0" layoutY="270.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="463.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="South E.U.">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="ukraine" alignment="CENTER" layoutX="547.0" layoutY="180.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="547.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ukraine">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="northEU" alignment="CENTER" layoutX="460.0" layoutY="200.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="454.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="North E.U.">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="iceland" alignment="CENTER" layoutX="393.0" layoutY="127.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="394.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iceland">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="scandinavia" alignment="CENTER" layoutX="463.0" layoutY="122.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="455.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scandinavia">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="afghanistan" alignment="CENTER" layoutX="628.0" layoutY="227.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="618.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Afghanistan">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="india" alignment="CENTER" layoutX="679.0" layoutY="332.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="685.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="India">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="middleEast" alignment="CENTER" layoutX="572.0" layoutY="338.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="563.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Middle East">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="japan" alignment="CENTER" layoutX="861.0" layoutY="213.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="865.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Japan">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="ural" alignment="CENTER" layoutX="645.0" layoutY="152.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="653.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ural">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="yakutsk" alignment="CENTER" layoutX="763.0" layoutY="70.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="763.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yakutsk">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="kamchatka" alignment="CENTER" layoutX="827.0" layoutY="94.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="819.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kamchatka">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="siam" alignment="CENTER" layoutX="751.0" layoutY="360.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="757.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Siam">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="irkutsk" alignment="CENTER" layoutX="750.0" layoutY="140.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="753.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Irkutsk">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="siberia" alignment="CENTER" layoutX="695.0" layoutY="108.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="697.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIberia">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="mongolia" alignment="CENTER" layoutX="760.0" layoutY="216.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="755.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mongolia">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="china" alignment="CENTER" layoutX="735.0" layoutY="277.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="739.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="China">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="eastAustralia" alignment="CENTER" layoutX="889.0" layoutY="537.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="881.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E. Australia">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="newGuinea" alignment="CENTER" layoutX="850.0" layoutY="429.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="840.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Guinea">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="westAustralia" alignment="CENTER" layoutX="813.0" layoutY="526.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="803.0" layoutY="564.0" strokeType="OUTSIDE" strokeWidth="0.0" text="W. Australia">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="indonesia" alignment="CENTER" layoutX="771.0" layoutY="454.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="766.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Indonesia">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="venezuela" alignment="CENTER" layoutX="213.0" layoutY="352.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="207.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Venezuela">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="peru" alignment="CENTER" layoutX="221.0" layoutY="426.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="228.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Peru">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="brazil" alignment="CENTER" layoutX="289.0" layoutY="415.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="294.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brazil">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="argentina" alignment="CENTER" layoutX="233.0" layoutY="523.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="228.0" layoutY="557.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Argentina">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="congo" alignment="CENTER" layoutX="496.0" layoutY="462.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="498.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Congo">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="northAfrica" alignment="CENTER" layoutX="440.0" layoutY="393.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="438.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N. Africa">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="southAfrica" alignment="CENTER" layoutX="510.0" layoutY="532.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="509.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S. Africa">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="egypt" alignment="CENTER" layoutX="499.0" layoutY="354.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="503.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Egypt">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="eastAfrica" alignment="CENTER" layoutX="547.0" layoutY="432.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="546.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E. Africa">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Button fx:id="madagascar" alignment="CENTER" layoutX="586.0" layoutY="545.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="576.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Madagascar">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane fx:id="infoPane" layoutY="616.0" prefHeight="184.0" prefWidth="1000.0">
+         <children>
+            <TextField fx:id="inputText" layoutX="14.0" layoutY="145.0" prefHeight="25.0" prefWidth="228.0" promptText="Enter Command" />
+            <TextArea fx:id="inputHistory" editable="false" layoutX="14.0" layoutY="17.0" prefHeight="128.0" prefWidth="228.0" />
+            <TextArea fx:id="outputText" editable="false" layoutX="242.0" layoutY="17.0" prefHeight="157.0" prefWidth="741.0">
+               <opaqueInsets>
+                  <Insets bottom="2.0" right="2.0" top="2.0" />
+               </opaqueInsets></TextArea>
+         </children>
+      </Pane>
+   </children>
+</Pane>
