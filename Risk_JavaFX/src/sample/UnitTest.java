@@ -58,12 +58,12 @@ public class UnitTest {
 
     }
 
-    @Test
+    /*@Test
     //To check if player1 and player2's have been randomly allocated
     public void test6(){
 
         Allocation p1countries = new Allocation("", "");
         p1countries.assignCountries();
-    }
+    }*/
 }
 
