@@ -9,7 +9,7 @@ public class Player {
     private String name;
     private String colour;
     private ArrayList<String> countries;
-    private HashMap<String, Integer> armies;
+//    private HashMap<String, Integer> armies;
     //dice instance here
 
     public Player(String name, String colour, ArrayList<String> countries) {
@@ -32,9 +32,9 @@ public class Player {
         return countries;
     }
 
-    public HashMap<String, Integer> getArmies() {
-        return armies;
-    }
+//    public HashMap<String, Integer> getArmies() {
+//        return armies;
+//    }
 
 
 }

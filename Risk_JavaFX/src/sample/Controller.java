@@ -68,9 +68,9 @@ public class Controller implements Initializable {
                 objNeutral3 = allocate.getNeutral3();
                 objNeutral4 = allocate.getNeutral4();
                 printAllocation(allocate);
-                move(objPlayer1, inputText.getText());
-                goPlayer1 = false;
-
+                i++;
+                outputText.appendText("Player 1 it's your turn, press enter \"finish\" to finish\n");
+                parseInput();
                 break;
             }
 
@@ -94,18 +94,15 @@ public class Controller implements Initializable {
 
     public void move(Player player, String input) {
 
-        if(goPlayer1) {
-            outputText.appendText("Player 1 it's your turn, press enter \"finish\" to finish\n");
-        }
-
-        if(!goPlayer1) {
-            outputText.appendText("Player 2 it's your turn, press enter \"finish\" to finish\n");
-
-        }
-
         if(input.equals("finish")) {
             goPlayer1 = !goPlayer1;
-            return;
+            if(goPlayer1) {
+                outputText.appendText("Player 1 it's your turn, press enter \"finish\" to finish\n");
+            }
+
+            if(!goPlayer1) {
+                outputText.appendText("Player 2 it's your turn, press enter \"finish\" to finish\n");
+            }
         }
 
         //if input is equal to other things do other things
