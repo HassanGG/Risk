@@ -37,13 +37,14 @@ public class Controller implements Initializable {
         inputText.setOnAction(e ->{
             strInput = inputText.getText();
             inputHistory.appendText(strInput + "\n");
-            inputText.setText("");
             parseInput();
+            inputText.setText("");
         });
 
     }
 
     //integer that decides what to do with input (idk how to do this in better way)
+    private Boolean goPlayer1 = true;
     private int i = 0;
     private void parseInput() {
         switch (i) {
@@ -67,10 +68,47 @@ public class Controller implements Initializable {
                 objNeutral3 = allocate.getNeutral3();
                 objNeutral4 = allocate.getNeutral4();
                 printAllocation(allocate);
+                move(objPlayer1, inputText.getText());
+                goPlayer1 = false;
+
                 break;
             }
+
+            case 2: {
+                if(goPlayer1) {
+                    move(objPlayer1, inputText.getText());
+                } else {
+                     move(objPlayer2, inputText.getText());
+                }
+
+                inputText.setText("");
+            }
+
+
         }
-        i++;
+
+        if(i != 2) {
+            i++;
+        }
+    }
+
+    public void move(Player player, String input) {
+
+        if(goPlayer1) {
+            outputText.appendText("Player 1 it's your turn, press enter \"finish\" to finish\n");
+        }
+
+        if(!goPlayer1) {
+            outputText.appendText("Player 2 it's your turn, press enter \"finish\" to finish\n");
+
+        }
+
+        if(input.equals("finish")) {
+            goPlayer1 = !goPlayer1;
+            return;
+        }
+
+        //if input is equal to other things do other things
     }
 
     /*
