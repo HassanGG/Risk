@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,6 +26,9 @@ public class Controller implements Initializable {
     private String strInput;
     private String player1, player2;
     Allocate allocate;
+
+    //Player instances
+    Player objPlayer1, objPlayer2, objNeutral1, objNeutral2, objNeutral3, objNeutral4;
 
     /*Runs piece of code upon application start up*/
     @Override
@@ -58,7 +59,13 @@ public class Controller implements Initializable {
                 outputText.appendText("player 1: " + player1 + "\nplayer 2: " + player2 + "\n");
                 inputText.setText("");
                 allocate = new Allocation(player1, player2);
-                allocate.assignCountries();
+                allocate.assignPlayerValues();
+                objPlayer1 = allocate.getPlayer1();
+                objPlayer2 = allocate.getPlayer2();
+                objNeutral1 = allocate.getNeutral1();
+                objNeutral2 = allocate.getNeutral2();
+                objNeutral3 = allocate.getNeutral3();
+                objNeutral4 = allocate.getNeutral4();
                 printAllocation(allocate);
                 break;
             }
@@ -87,11 +94,11 @@ public class Controller implements Initializable {
     }
 
     private void printAllocation(Allocate allocate) {
-        outputText.appendText(allocate.getPLAYER1() + "'s countries: " + allocate.getPlayer1Countries().toString() + "\n");
-        outputText.appendText(allocate.getPLAYER2() + "'s countries: " + allocate.getPlayer2Countries().toString() + "\n");
-        outputText.appendText("Neutral Countries: \n" + allocate.getNeutral1Countries().toString() + "\n");
-        outputText.appendText(allocate.getNeutral2Countries().toString() + "\n");
-        outputText.appendText(allocate.getNeutral3Countries().toString() + "\n");
-        outputText.appendText(allocate.getNeutral4Countries().toString() + "\n");
+        outputText.appendText(objPlayer1.getName() + "'s countries: " + objPlayer1.getCountries().toString() + "\n");
+        outputText.appendText(objPlayer2.getName() + "'s countries: " + objPlayer2.getCountries().toString() + "\n");
+        outputText.appendText("Neutral Countries: \n" + objNeutral1.getCountries().toString() + "\n");
+        outputText.appendText(objNeutral2.getCountries().toString() + "\n");
+        outputText.appendText(objNeutral3.getCountries().toString() + "\n");
+        outputText.appendText(objNeutral4.getCountries().toString() + "\n");
     }
 }

@@ -1,14 +1,28 @@
 package sample;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 public class UnitTest {
+    Player objPlayer1, objPlayer2, objNeutral1, objNeutral2, objNeutral3, objNeutral4;
+    Allocation allocate;
+
+    @Before
+    public void setup() {
+        allocate = new Allocation("","");
+        allocate.assignPlayerValues();
+        objPlayer1 = allocate.getPlayer1();
+        objPlayer2 = allocate.getPlayer2();
+        objNeutral1 = allocate.getNeutral1();
+        objNeutral2 = allocate.getNeutral2();
+        objNeutral3 = allocate.getNeutral3();
+        objNeutral4 = allocate.getNeutral4();
+    }
     @Test
     //To check player1 and player2 is allocated 9 territories
     public void test1() {
-        Allocation p1countries = new Allocation("", "");
-        p1countries.assignCountries();
-        int actual1 = p1countries.getPlayer1Countries().size();
-        int actual2 = p1countries.getPlayer2Countries().size();
+        allocate.assignPlayerValues();
+        int actual1 = objPlayer1.getCountries().size();
+        int actual2 = objPlayer2.getCountries().size();
         assertEquals(9, actual1);
         assertEquals(9, actual2);
 
@@ -17,10 +31,8 @@ public class UnitTest {
     @Test
     //To check neutralplauer1 is allocated 6 territories
     public void test2() {
-
-        Allocation p1countries = new Allocation("", "");
-        p1countries.assignCountries();
-        int actual = p1countries.getNeutral1Countries().size();
+        allocate.assignPlayerValues();
+        int actual = objNeutral1.getCountries().size();
         assertEquals(6, actual);
 
     }
@@ -29,9 +41,8 @@ public class UnitTest {
     //To check neutralplauer2 is allocated 6 territories
     public void test3() {
 
-        Allocation p1countries = new Allocation("", "");
-        p1countries.assignCountries();
-        int actual = p1countries.getNeutral2Countries().size();
+        allocate.assignPlayerValues();
+        int actual = objNeutral2.getCountries().size();
         assertEquals(6, actual);
 
     }
@@ -40,9 +51,8 @@ public class UnitTest {
     //To check neutralplauer3 is allocated 6 territories
     public void test4() {
 
-        Allocation p1countries = new Allocation("", "");
-        p1countries.assignCountries();
-        int actual = p1countries.getNeutral3Countries().size();
+        allocate.assignPlayerValues();
+        int actual = objNeutral3.getCountries().size();
         assertEquals(6, actual);
 
     }
@@ -51,9 +61,8 @@ public class UnitTest {
     //To check neutralplauer4 is allocated 6 territories
     public void test5() {
 
-        Allocation p1countries = new Allocation("", "");
-        p1countries.assignCountries();
-        int actual = p1countries.getNeutral4Countries().size();
+        allocate.assignPlayerValues();
+        int actual = objNeutral4.getCountries().size();
         assertEquals(6, actual);
 
     }

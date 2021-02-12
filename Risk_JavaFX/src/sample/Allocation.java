@@ -9,6 +9,12 @@ import java.util.List;
 public class Allocation implements Allocate {
 
     private final String PLAYER1, PLAYER2;
+    private Player player1;
+    private Player player2;
+    private Player neutral1;
+    private Player neutral2;
+    private Player neutral3;
+    private Player neutral4;
 
     private ArrayList<String> player1Countries = new ArrayList<String>();
     private ArrayList<String> player2Countries = new ArrayList<String>();
@@ -17,45 +23,67 @@ public class Allocation implements Allocate {
     private ArrayList<String> neutral3Countries = new ArrayList<String>();
     private ArrayList<String> neutral4Countries = new ArrayList<String>();
 
-
     //player names will decided in another class or in main
     public Allocation(String player1, String player2) {
         this.PLAYER1 = player1;
         this.PLAYER2 = player2;
     }
 
-    public String getPLAYER1() {
-        return PLAYER1;
+//    public String getPLAYER1() {
+//        return PLAYER1;
+//    }
+//
+//    public String getPLAYER2() {
+//        return PLAYER2;
+//    }
+//
+//    public ArrayList<String> getPlayer1Countries() {
+//        return player1Countries;
+//    }
+//
+//    public ArrayList<String> getPlayer2Countries() {
+//        return player2Countries;
+//    }
+//
+//    public ArrayList<String> getNeutral1Countries() {
+//        return neutral1Countries;
+//    }
+//
+//    public ArrayList<String> getNeutral2Countries() {
+//        return neutral2Countries;
+//    }
+//
+//    public ArrayList<String> getNeutral3Countries() {
+//        return neutral3Countries;
+//    }
+//
+//    public ArrayList<String> getNeutral4Countries() {return neutral4Countries; }
+
+    public Player getPlayer1() {
+        return player1;
     }
 
-    public String getPLAYER2() {
-        return PLAYER2;
+    public Player getPlayer2() {
+        return player2;
     }
 
-    public ArrayList<String> getPlayer1Countries() {
-        return player1Countries;
+    public Player getNeutral1() {
+        return neutral1;
     }
 
-    public ArrayList<String> getPlayer2Countries() {
-        return player2Countries;
+    public Player getNeutral2() {
+        return neutral2;
     }
 
-    public ArrayList<String> getNeutral1Countries() {
-        return neutral1Countries;
+    public Player getNeutral3() {
+        return neutral3;
     }
 
-    public ArrayList<String> getNeutral2Countries() {
-        return neutral2Countries;
+    public Player getNeutral4() {
+        return neutral4;
     }
 
-    public ArrayList<String> getNeutral3Countries() {
-        return neutral3Countries;
-    }
-
-    public ArrayList<String> getNeutral4Countries() {return neutral4Countries; }
-
-
-        public void assignCountries() {
+    public void assignPlayerValues() {
         //copy array of countries strings to list so we can randomize
         String[] countries = Constants.COUNTRY_NAMES;
         List<String> randomize = new ArrayList<String>(Arrays.asList(countries));
@@ -88,6 +116,14 @@ public class Allocation implements Allocate {
                     break;
             }
         }
+
+        //all temporarily set to blue for colour.
+        player1 = new Player(PLAYER1, "blue", player1Countries);
+        player2 = new Player(PLAYER2, "blue", player2Countries);
+        neutral1 = new Player("neutral 1", "blue", neutral1Countries);
+        neutral2 = new Player("neutral 2", "blue", neutral2Countries);
+        neutral3 = new Player("neutral 3", "blue", neutral3Countries);
+        neutral4 = new Player("neutral 4", "blue", neutral4Countries);
     }
 
 }
