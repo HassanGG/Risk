@@ -11,14 +11,14 @@ public class Constants {
 	public static final int INIT_UNITS_PLAYER = 36;
 	public static final int INIT_UNITS_NEUTRAL = 24;
 	public static final String[] COUNTRY_NAMES = {
-			"Ontario","Quebec","NW Territory","Alberta","Greenland","E United States","W United States","Central America","Alaska",
-			"Great Britain","W Europe","S Europe","Ukraine","N Europe","Iceland","Scandinavia",
+			"Alaska", "Alberta", "Central America", "Eastern United States", "Greenland", "Northwest Territory", "Ontario", "Quebec", "Western United States",
+			"Great Britain", "Iceland", "Northern Europe", "Scandinavia", "Southern Europe", "Ukraine", "Western Europe",
 			"Afghanistan","India","Middle East","Japan","Ural","Yakutsk","Kamchatka","Siam","Irkutsk","Siberia","Mongolia","China",
-			"E Australia","New Guinea","W Australia","Indonesia",
-			"Venezuela","Peru","Brazil","Argentina",
-			"Congo","N Africa","S Africa","Egypt","E Africa","Madagascar"};  // for reference
-	public static final String[] NORTH_AMERICA = {"alaska", "alberta", "central america", "eastern united states", "greenland", "northwest territory", "ontario", "quebec", "western united states"};
-	public static final String[] SOUTH_AMERICA = {"argentina", "brazil", "peru", "venezuela"};
+			"Eastern Australia", "Indonesia", "New Guinea", "Western Australia",
+			"Argentina", "Brazil", "Peru", "Venezuela",
+			"Congo", "East Africa", "Egypt", "Madagascar", "North Africa", "South Africa"};  // for reference
+	public static final String[] NORTH_AMERICA = {"Alaska", "Alberta", "Central America", "Eastern United States", "Greenland", "Northwest Territory", "Ontario", "Quebec", "Western United States"};
+	public static final String[] SOUTH_AMERICA = {"Argentina", "Brazil", "Peru", "Venezuela"};
 	public static final String[] EUROPE = {"Great Britain", "Iceland", "Northern Europe", "Scandinavia", "Southern Europe", "Ukraine", "Western Europe"};
 	public static final String[] AFRICA = {"Congo", "East Africa", "Egypt", "Madagascar", "North Africa", "South Africa"};
 	public static final String[] ASIA = {"Afghanistan", "China", "India", "Irkutsk", "Japan", "Kamchatka", "MiddleEast", "Mongolia", "Siam", "Siberia", "Ural", "Yakutsk"};

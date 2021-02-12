@@ -9,14 +9,15 @@ import java.util.HashMap;
 public interface Allocate {
     //gets the name of the first player
     public Player getPlayer1();
-
     //gets the name of the second player
     public Player getPlayer2();
-
     public Player getNeutral1();
     public Player getNeutral2();
     public Player getNeutral3();
     public Player getNeutral4();
+
+    public HashMap<String, Integer> getAllArmies();
+
 
     //get each player
 //    public ArrayList<String> getNeutral1Countries();

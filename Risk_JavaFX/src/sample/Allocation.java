@@ -1,9 +1,6 @@
 package sample;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 //!!!!!!In order to access player names this class needs to be extended!!!!!!!
 public class Allocation implements Allocate {
@@ -23,12 +20,20 @@ public class Allocation implements Allocate {
     private ArrayList<String> neutral3Countries = new ArrayList<String>();
     private ArrayList<String> neutral4Countries = new ArrayList<String>();
 
+    //hashmap containing all countries and their army values
+    private HashMap<String, Integer> allArmies = new HashMap<>();
+
+
+
     //player names will decided in another class or in main
     public Allocation(String player1, String player2) {
         this.PLAYER1 = player1;
         this.PLAYER2 = player2;
     }
 
+    public HashMap<String, Integer> getAllArmies() {
+        return allArmies;
+    }
 //    public String getPLAYER1() {
 //        return PLAYER1;
 //    }
@@ -124,6 +129,25 @@ public class Allocation implements Allocate {
         neutral2 = new Player("neutral 2", "blue", neutral2Countries);
         neutral3 = new Player("neutral 3", "blue", neutral3Countries);
         neutral4 = new Player("neutral 4", "blue", neutral4Countries);
+        assignArmies();
+    }
+
+    private void assignArmies() {
+        //armies per country is equal to 4
+        ArrayList<ArrayList<String>> playerCountries = new ArrayList<>();
+        playerCountries.add(player1.getCountries());
+        playerCountries.add(player2.getCountries());
+        playerCountries.add(neutral1.getCountries());
+        playerCountries.add(neutral2.getCountries());
+        playerCountries.add(neutral3.getCountries());
+        playerCountries.add(neutral4.getCountries());
+
+        for(ArrayList<String> i : playerCountries) {
+            for(String j : i) {
+                allArmies.put(j, 4);
+            }
+        }
+
     }
 
 }
