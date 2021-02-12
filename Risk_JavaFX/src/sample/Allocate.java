@@ -14,15 +14,10 @@ public interface Allocate {
 
     //get each player
     public ArrayList<String> getNeutral1Countries();
-
     public ArrayList<String> getNeutral2Countries();
-
     public ArrayList<String> getNeutral3Countries();
-
     public ArrayList<String> getNeutral4Countries();
-
     public ArrayList<String> getPlayer1Countries();
-
     public ArrayList<String> getPlayer2Countries();
 
     //assigns random countries based on continent to 2 players and 4 neutrals
