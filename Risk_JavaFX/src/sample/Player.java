@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,12 +9,12 @@ import java.util.HashMap;
 //colour needs to be added first before we assign colour same with dice
 public class Player {
     private String name;
-    private String colour;
+    private Color colour;
     private ArrayList<String> countries;
 //    private HashMap<String, Integer> armies;
     //dice instance here
 
-    public Player(String name, String colour, ArrayList<String> countries) {
+    public Player(String name, Color colour, ArrayList<String> countries) {
         this.name = name;
         this.colour = colour;
         this.countries = (ArrayList<String>) countries.clone();
@@ -24,7 +26,7 @@ public class Player {
         return name;
     }
 
-    public String getColour() {
+    public Color getColour() {
         return colour;
     }
 

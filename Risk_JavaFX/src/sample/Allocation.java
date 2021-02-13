@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.scene.paint.Color;
+
 import java.util.*;
 
 //!!!!!!In order to access player names this class needs to be extended!!!!!!!
@@ -123,12 +125,12 @@ public class Allocation implements Allocate {
         }
 
         //all temporarily set to blue for colour.
-        player1 = new Player(PLAYER1, "blue", player1Countries);
-        player2 = new Player(PLAYER2, "blue", player2Countries);
-        neutral1 = new Player("neutral 1", "blue", neutral1Countries);
-        neutral2 = new Player("neutral 2", "blue", neutral2Countries);
-        neutral3 = new Player("neutral 3", "blue", neutral3Countries);
-        neutral4 = new Player("neutral 4", "blue", neutral4Countries);
+        player1 = new Player(PLAYER1, Color.BLUE, player1Countries);
+        player2 = new Player(PLAYER2, Color.RED, player2Countries);
+        neutral1 = new Player("neutral 1", Color.WHITE, neutral1Countries);
+        neutral2 = new Player("neutral 2", Color.WHITE, neutral2Countries);
+        neutral3 = new Player("neutral 3", Color.WHITE, neutral3Countries);
+        neutral4 = new Player("neutral 4", Color.WHITE, neutral4Countries);
         assignArmies();
     }
 
