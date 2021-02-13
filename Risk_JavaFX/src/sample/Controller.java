@@ -24,7 +24,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     @FXML private TextArea outputText;
     @FXML public TextField inputText;
     @FXML private TextArea inputHistory;
-    private String strInput;
+//    private String strInput;
     private Boolean gotPlayerNames = false;
 
     Allocation allocate = new Allocation();
@@ -35,7 +35,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         outputText.appendText("Please enter name for Player 1\n");
         inputText.setOnAction(this);
-
     }
 
     private int i = 0;
@@ -55,45 +54,34 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 inputText.setText("");
                 allocate.assignPlayerValues(game);
                 printAllocation();
-                move(game.current);
+//                outputText.appendText("Press enter to play game.\n");
+                outputText.appendText(game.current.getName() + ", it is your turn, please enter name of a country.\n");
                 gotPlayerNames = true;
                 break;
             }
         }
     }
 
-    public void move(Player player) {
-        outputText.appendText(game.current.getName() + ", it is your turn, press enter to finish\n");
-        /* Code to implement move goes here
-        *
-        *
-        *
-        *
-        * */
+    public void move() {
+        int index = CountryHashMap.getIndexOfCountry(inputText.getText());
 
-        inputHistory.appendText(inputText.getText() + "\n");
-        inputText.setText("");
-        game.switchTurn();
-    }
+        if(index == -1){
+            outputText.appendText("Enter valid country.\n");
+            inputText.setText("");
+        }else{
+            outputText.appendText("Country Name: " + Constants.COUNTRY_NAMES[index] + "\n");
+            outputText.appendText("Continent: " + Constants.CONTINENT_NAMES[Constants.CONTINENT_IDS[index]] + "\n");
+            outputText.appendText("Adjacent Countries: \n");
+            for(int i = 0; i < Constants.ADJACENT[index].length; i++){
+                outputText.appendText("\t" + Constants.COUNTRY_NAMES[Constants.ADJACENT[index][i]] + "\n");
+            }
 
-    /*
-    * ((Button)event.getSource()).getId() --->  gets the id of the event source, e.g. when "Ontario" button
-    *       is pressed, its fx:id "ontario" is return as a string.
-    * CountryHashMap.COUNTRY_INDEX.get(((Button)event.getSource()).getId()) ---> returns the index of the id to
-    *       be used in other arrays. e.g. Constants.COUNTRY_NAMES, Constants.ADJACENT
-    * */
-    public void getAdjacentCountries(ActionEvent event){
-        int countryIndex = CountryHashMap.COUNTRY_INDEX.get(((Button)event.getSource()).getId());
-
-        String string = Constants.COUNTRY_NAMES[countryIndex] + "'s Adjacent Countries:\n";
-
-        for (int index = 0; index < Constants.ADJACENT[countryIndex].length; index++){
-            int i = Constants.ADJACENT[countryIndex][index];
-            string += Constants.COUNTRY_NAMES[i] + "\n";
+            outputText.appendText("\n");
+            inputHistory.appendText(inputText.getText() + "\n");
+            inputText.setText("");
+            game.switchTurn();
+            outputText.appendText(game.current.getName() + ", it is your turn, please enter name of a country.\n");
         }
-        string += "\n";
-
-        outputText.appendText(string);
     }
 
     private void printAllocation() {
@@ -107,12 +95,15 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        if(!gotPlayerNames){
+        if(inputText.getText().isBlank()){
+            outputText.appendText("Enter valid input\n");
+            inputText.setText("");
+        }else if(!gotPlayerNames){
             inputHistory.appendText(inputText.getText() + "\n");
             parseInput();
             inputText.setText("");
         }else{
-            move(game.current);
+            move();
         }
     }
 }

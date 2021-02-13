@@ -44,7 +44,7 @@
       </ImageView>
       <Pane prefHeight="650.0" prefWidth="1000.0">
          <children>
-            <Button fx:id="ontario" layoutX="191.0" layoutY="150.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="11">
+            <Button fx:id="ontario" layoutX="191.0" layoutY="150.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="32.0" text="11">
                <font>
                   <Font size="10.0" />
                </font>
@@ -54,7 +54,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="quebec" layoutX="255.0" layoutY="161.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="1">
+            <Button fx:id="quebec" layoutX="255.0" layoutY="161.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="32.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -64,7 +64,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="nwTerritory" layoutX="146.0" layoutY="86.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="1">
+            <Button fx:id="nwTerritory" layoutX="146.0" layoutY="86.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="32.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -74,7 +74,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="alberta" layoutX="123.0" layoutY="144.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="32.0" text="1">
+            <Button fx:id="alberta" layoutX="123.0" layoutY="144.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="32.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -84,7 +84,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="greenland" alignment="CENTER" layoutX="314.0" layoutY="61.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="greenland" alignment="CENTER" layoutX="314.0" layoutY="61.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -94,7 +94,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="eastUS" alignment="CENTER" layoutX="205.0" layoutY="235.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="eastUS" alignment="CENTER" layoutX="205.0" layoutY="235.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -104,7 +104,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="westUS" alignment="CENTER" layoutX="135.0" layoutY="219.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="westUS" alignment="CENTER" layoutX="135.0" layoutY="219.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -114,7 +114,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="centralAmerica" alignment="CENTER" layoutX="140.0" layoutY="299.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="centralAmerica" alignment="CENTER" layoutX="140.0" layoutY="299.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -124,7 +124,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="alaska" alignment="CENTER" layoutX="45.0" layoutY="89.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="alaska" alignment="CENTER" layoutX="45.0" layoutY="89.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -134,7 +134,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="greatBritain" alignment="CENTER" layoutX="370.0" layoutY="199.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="greatBritain" alignment="CENTER" layoutX="370.0" layoutY="199.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -144,7 +144,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="westEU" alignment="CENTER" layoutX="398.0" layoutY="280.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="westEU" alignment="CENTER" layoutX="398.0" layoutY="280.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -154,7 +154,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="southEU" alignment="CENTER" layoutX="465.0" layoutY="270.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="southEU" alignment="CENTER" layoutX="465.0" layoutY="270.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -164,7 +164,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="ukraine" alignment="CENTER" layoutX="547.0" layoutY="180.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="ukraine" alignment="CENTER" layoutX="547.0" layoutY="180.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -174,7 +174,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="northEU" alignment="CENTER" layoutX="460.0" layoutY="200.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="northEU" alignment="CENTER" layoutX="460.0" layoutY="200.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -184,7 +184,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="iceland" alignment="CENTER" layoutX="393.0" layoutY="127.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="iceland" alignment="CENTER" layoutX="393.0" layoutY="127.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -194,7 +194,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="scandinavia" alignment="CENTER" layoutX="463.0" layoutY="122.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="scandinavia" alignment="CENTER" layoutX="463.0" layoutY="122.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -204,7 +204,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="afghanistan" alignment="CENTER" layoutX="628.0" layoutY="227.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="afghanistan" alignment="CENTER" layoutX="628.0" layoutY="227.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -214,7 +214,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="india" alignment="CENTER" layoutX="679.0" layoutY="332.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="india" alignment="CENTER" layoutX="679.0" layoutY="332.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -224,7 +224,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="middleEast" alignment="CENTER" layoutX="572.0" layoutY="338.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="middleEast" alignment="CENTER" layoutX="572.0" layoutY="338.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -234,7 +234,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="japan" alignment="CENTER" layoutX="861.0" layoutY="213.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="japan" alignment="CENTER" layoutX="861.0" layoutY="213.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -244,7 +244,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="ural" alignment="CENTER" layoutX="645.0" layoutY="152.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="ural" alignment="CENTER" layoutX="645.0" layoutY="152.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -254,7 +254,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="yakutsk" alignment="CENTER" layoutX="763.0" layoutY="70.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="yakutsk" alignment="CENTER" layoutX="763.0" layoutY="70.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -264,7 +264,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="kamchatka" alignment="CENTER" layoutX="827.0" layoutY="94.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="kamchatka" alignment="CENTER" layoutX="827.0" layoutY="94.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -274,7 +274,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="siam" alignment="CENTER" layoutX="751.0" layoutY="360.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="siam" alignment="CENTER" layoutX="751.0" layoutY="360.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -284,7 +284,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="irkutsk" alignment="CENTER" layoutX="750.0" layoutY="140.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="irkutsk" alignment="CENTER" layoutX="750.0" layoutY="140.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -294,7 +294,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="siberia" alignment="CENTER" layoutX="695.0" layoutY="108.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="siberia" alignment="CENTER" layoutX="695.0" layoutY="108.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -304,7 +304,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="mongolia" alignment="CENTER" layoutX="760.0" layoutY="216.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="mongolia" alignment="CENTER" layoutX="760.0" layoutY="216.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -314,7 +314,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="china" alignment="CENTER" layoutX="735.0" layoutY="277.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="china" alignment="CENTER" layoutX="735.0" layoutY="277.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -324,7 +324,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="eastAustralia" alignment="CENTER" layoutX="889.0" layoutY="537.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="eastAustralia" alignment="CENTER" layoutX="889.0" layoutY="537.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -334,7 +334,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="newGuinea" alignment="CENTER" layoutX="850.0" layoutY="429.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="newGuinea" alignment="CENTER" layoutX="850.0" layoutY="429.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -344,7 +344,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="westAustralia" alignment="CENTER" layoutX="813.0" layoutY="526.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="westAustralia" alignment="CENTER" layoutX="813.0" layoutY="526.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -354,7 +354,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="indonesia" alignment="CENTER" layoutX="771.0" layoutY="454.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="indonesia" alignment="CENTER" layoutX="771.0" layoutY="454.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -364,7 +364,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="venezuela" alignment="CENTER" layoutX="213.0" layoutY="352.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="venezuela" alignment="CENTER" layoutX="213.0" layoutY="352.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -374,7 +374,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="peru" alignment="CENTER" layoutX="221.0" layoutY="426.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="peru" alignment="CENTER" layoutX="221.0" layoutY="426.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -384,7 +384,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="brazil" alignment="CENTER" layoutX="289.0" layoutY="415.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="brazil" alignment="CENTER" layoutX="289.0" layoutY="415.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -394,7 +394,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="argentina" alignment="CENTER" layoutX="233.0" layoutY="523.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="argentina" alignment="CENTER" layoutX="233.0" layoutY="523.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -404,7 +404,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="congo" alignment="CENTER" layoutX="496.0" layoutY="462.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="congo" alignment="CENTER" layoutX="496.0" layoutY="462.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -414,7 +414,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="northAfrica" alignment="CENTER" layoutX="440.0" layoutY="393.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="northAfrica" alignment="CENTER" layoutX="440.0" layoutY="393.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -424,7 +424,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="southAfrica" alignment="CENTER" layoutX="510.0" layoutY="532.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="southAfrica" alignment="CENTER" layoutX="510.0" layoutY="532.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -434,7 +434,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="egypt" alignment="CENTER" layoutX="499.0" layoutY="354.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="egypt" alignment="CENTER" layoutX="499.0" layoutY="354.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -444,7 +444,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="eastAfrica" alignment="CENTER" layoutX="547.0" layoutY="432.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="eastAfrica" alignment="CENTER" layoutX="547.0" layoutY="432.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
@@ -454,7 +454,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Button fx:id="madagascar" alignment="CENTER" layoutX="586.0" layoutY="545.0" mnemonicParsing="false" onAction="#getAdjacentCountries" prefHeight="23.0" prefWidth="33.0" text="1">
+            <Button fx:id="madagascar" alignment="CENTER" layoutX="586.0" layoutY="545.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="33.0" text="1">
                <font>
                   <Font size="10.0" />
                </font>
