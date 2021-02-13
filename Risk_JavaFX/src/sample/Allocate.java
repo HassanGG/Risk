@@ -8,13 +8,13 @@ import java.util.HashMap;
 //allocation.assignCountries();
 public interface Allocate {
     //gets the name of the first player
-    public Player getPlayer1();
-    //gets the name of the second player
-    public Player getPlayer2();
-    public Player getNeutral1();
-    public Player getNeutral2();
-    public Player getNeutral3();
-    public Player getNeutral4();
+//    public Player getPlayer1();
+//    //gets the name of the second player
+//    public Player getPlayer2();
+//    public Player getNeutral1();
+//    public Player getNeutral2();
+//    public Player getNeutral3();
+//    public Player getNeutral4();
 
     public HashMap<String, Integer> getAllArmies();
 
@@ -36,6 +36,6 @@ public interface Allocate {
 //    public HashMap<String, Integer> getPlayer1Armies();
 
     //assigns random countries based on continent to 2 players and 4 neutrals
-    public void assignPlayerValues();
+    public void assignPlayerValues(Game game);
 
 }

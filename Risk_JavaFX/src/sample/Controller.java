@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,10 +11,10 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     /* Connects Controller class to fxml file*/
-    public Button ontario, quebec, nwTerritory, alberta, greenland, eastUS, westUS, centralAmerica, alaska,
+    @FXML Button ontario, quebec, nwTerritory, alberta, greenland, eastUS, westUS, centralAmerica, alaska,
             greatBritain, westEU, southEU, ukraine, northEU, iceland, scandinavia, afghanistan, india,
             middleEast, japan, ural, yakutsk, kamchatka, siam, irkutsk, siberia, mongolia, china,
             eastAustralia, newGuinea, westAustralia, indonesia, venezuela, peru, brazil, argentina,
@@ -21,91 +22,58 @@ public class Controller implements Initializable {
 
     //global variables for io.
     @FXML private TextArea outputText;
-    @FXML private TextField inputText;
+    @FXML public TextField inputText;
     @FXML private TextArea inputHistory;
     private String strInput;
-    private String player1, player2;
-    Allocate allocate;
+    private Boolean gotPlayerNames = false;
 
-    //Player instances
-    Player objPlayer1, objPlayer2, objNeutral1, objNeutral2, objNeutral3, objNeutral4;
+    Allocation allocate = new Allocation();
+    Game game = new Game();
 
     /*Runs piece of code upon application start up*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         outputText.appendText("Please enter name for Player 1\n");
-        inputText.setOnAction(e ->{
-            strInput = inputText.getText();
-            inputHistory.appendText(strInput + "\n");
-            parseInput();
-            inputText.setText("");
-        });
+        inputText.setOnAction(this);
 
     }
 
-    //integer that decides what to do with input (idk how to do this in better way)
-    private Boolean goPlayer1 = true;
     private int i = 0;
     private void parseInput() {
         switch (i) {
             case 0:
                 //gets player 1 name from input
-                player1 = strInput;
+                game.player1.setName(inputText.getText());
                 outputText.appendText("Please enter name for Player 2\n");
                 inputText.setText("");
+                i++;
                 break;
 
             case 1: {
-                player2 = strInput;
-                outputText.appendText("player 1: " + player1 + "\nplayer 2: " + player2 + "\n");
+                game.player2.setName(inputText.getText());
+                outputText.appendText("player 1: " + game.player1.getName() + "\nplayer 2: " + game.player2.getName() + "\n");
                 inputText.setText("");
-                allocate = new Allocation(player1, player2);
-                allocate.assignPlayerValues();
-                objPlayer1 = allocate.getPlayer1();
-                objPlayer2 = allocate.getPlayer2();
-                objNeutral1 = allocate.getNeutral1();
-                objNeutral2 = allocate.getNeutral2();
-                objNeutral3 = allocate.getNeutral3();
-                objNeutral4 = allocate.getNeutral4();
-                printAllocation(allocate);
-                i++;
-                outputText.appendText("Player 1 it's your turn, press enter \"finish\" to finish\n");
-                parseInput();
+                allocate.assignPlayerValues(game);
+                printAllocation();
+                move(game.current);
+                gotPlayerNames = true;
                 break;
             }
-
-            case 2: {
-                if(goPlayer1) {
-                    move(objPlayer1, inputText.getText());
-                } else {
-                     move(objPlayer2, inputText.getText());
-                }
-
-                inputText.setText("");
-            }
-
-
-        }
-
-        if(i != 2) {
-            i++;
         }
     }
 
-    public void move(Player player, String input) {
+    public void move(Player player) {
+        outputText.appendText(game.current.getName() + ", it is your turn, press enter to finish\n");
+        /* Code to implement move goes here
+        *
+        *
+        *
+        *
+        * */
 
-        if(input.equals("finish")) {
-            goPlayer1 = !goPlayer1;
-            if(goPlayer1) {
-                outputText.appendText("Player 1 it's your turn, press enter \"finish\" to finish\n");
-            }
-
-            if(!goPlayer1) {
-                outputText.appendText("Player 2 it's your turn, press enter \"finish\" to finish\n");
-            }
-        }
-
-        //if input is equal to other things do other things
+        inputHistory.appendText(inputText.getText() + "\n");
+        inputText.setText("");
+        game.switchTurn();
     }
 
     /*
@@ -128,12 +96,23 @@ public class Controller implements Initializable {
         outputText.appendText(string);
     }
 
-    private void printAllocation(Allocate allocate) {
-        outputText.appendText(objPlayer1.getName() + "'s countries: " + objPlayer1.getCountries().toString() + "\n");
-        outputText.appendText(objPlayer2.getName() + "'s countries: " + objPlayer2.getCountries().toString() + "\n");
-        outputText.appendText("Neutral Countries: \n" + objNeutral1.getCountries().toString() + "\n");
-        outputText.appendText(objNeutral2.getCountries().toString() + "\n");
-        outputText.appendText(objNeutral3.getCountries().toString() + "\n");
-        outputText.appendText(objNeutral4.getCountries().toString() + "\n");
+    private void printAllocation() {
+        outputText.appendText(game.player1.getName() + "'s countries: " + game.player1.getCountries().toString() + "\n");
+        outputText.appendText(game.player2.getName() + "'s countries: " + game.player2.getCountries().toString() + "\n");
+        outputText.appendText("Neutral Countries: \n" + game.neutral1.getCountries().toString() + "\n");
+        outputText.appendText(game.neutral2.getCountries().toString() + "\n");
+        outputText.appendText(game.neutral3.getCountries().toString() + "\n");
+        outputText.appendText(game.neutral4.getCountries().toString() + "\n\n");
+    }
+
+    @Override
+    public void handle(ActionEvent actionEvent) {
+        if(!gotPlayerNames){
+            inputHistory.appendText(inputText.getText() + "\n");
+            parseInput();
+            inputText.setText("");
+        }else{
+            move(game.current);
+        }
     }
 }

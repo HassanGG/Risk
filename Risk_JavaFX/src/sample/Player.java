@@ -10,20 +10,21 @@ import java.util.HashMap;
 public class Player {
     private String name;
     private Color colour;
-    private ArrayList<String> countries;
+    public ArrayList<String> countries = new ArrayList<>();
+    public Dice dice;
 //    private HashMap<String, Integer> armies;
-    //dice instance here
 
-    public Player(String name, Color colour, ArrayList<String> countries) {
+    public Player(String name, Color colour) {
         this.name = name;
         this.colour = colour;
-        this.countries = (ArrayList<String>) countries.clone();
     }
-
-    public Player() {}
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Color getColour() {
