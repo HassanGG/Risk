@@ -34,40 +34,40 @@ public class Allocation {
             }
 
             switch (whichPlayer) {
-                case 0: game.player1.countries.add(randomize.get(i));
+                case 0: game.getPlayer1().getCountries().add(randomize.get(i));
                     break;
-                case 1: game.player2.countries.add(randomize.get(i));
+                case 1: game.getPlayer2().getCountries().add(randomize.get(i));
                     break;
-                case 2: game.neutral1.countries.add(randomize.get(i));
+                case 2: game.getNeutral1().getCountries().add(randomize.get(i));
                     break;
-                case 3: game.neutral2.countries.add(randomize.get(i));
+                case 3: game.getNeutral2().getCountries().add(randomize.get(i));
                     break;
-                case 4: game.neutral3.countries.add(randomize.get(i));
+                case 4: game.getNeutral3().getCountries().add(randomize.get(i));
                     break;
-                case 5: game.neutral4.countries.add(randomize.get(i));
+                case 5: game.getNeutral4().getCountries().add(randomize.get(i));
                     break;
             }
         }
 
-//        assignArmies();
+        assignArmies(game);
     }
 
-//    private void assignArmies() {
-//        //armies per country is equal to 4
-//        ArrayList<ArrayList<String>> playerCountries = new ArrayList<>();
-//        playerCountries.add(player1.getCountries());
-//        playerCountries.add(player2.getCountries());
-//        playerCountries.add(neutral1.getCountries());
-//        playerCountries.add(neutral2.getCountries());
-//        playerCountries.add(neutral3.getCountries());
-//        playerCountries.add(neutral4.getCountries());
-//
-//        for(ArrayList<String> i : playerCountries) {
-//            for(String j : i) {
-//                allArmies.put(j, 4);
-//            }
-//        }
-//
-//    }
+    private void assignArmies(Game game) {
+        //armies per country is equal to 4
+        ArrayList<ArrayList<String>> playerCountries = new ArrayList<>();
+        playerCountries.add(game.getPlayer1().getCountries());
+        playerCountries.add(game.getPlayer2().getCountries());
+        playerCountries.add(game.getNeutral1().getCountries());
+        playerCountries.add(game.getNeutral2().getCountries());
+        playerCountries.add(game.getNeutral3().getCountries());
+        playerCountries.add(game.getNeutral4().getCountries());
+
+        for(ArrayList<String> i : playerCountries) {
+            for(String j : i) {
+                allArmies.put(j, 4);
+            }
+        }
+
+    }
 
 }

@@ -16,8 +16,9 @@ public class Dice {
         this.diceValue = diceValue;
     }
 
-    public void rollDice(){
+    public int rollDice(){
         Random rand = new Random();
         setDiceValue(rand.nextInt(6) + 1);
+        return getDiceValue();
     }
 }

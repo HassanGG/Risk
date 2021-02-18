@@ -7,9 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Controller implements Initializable, EventHandler<ActionEvent> {
 
@@ -24,7 +25,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     @FXML private TextArea outputText;
     @FXML public TextField inputText;
     @FXML private TextArea inputHistory;
-//    private String strInput;
+
     private Boolean gotPlayerNames = false;
 
     Allocation allocate = new Allocation();
@@ -33,8 +34,16 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     /*Runs piece of code upon application start up*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Button[] countryButtons = {ontario, quebec, nwTerritory, alberta, greenland, eastUS, westUS, centralAmerica, alaska,
+                greatBritain, westEU, southEU, ukraine, northEU, iceland, scandinavia, afghanistan, india,
+                middleEast, japan, ural, yakutsk, kamchatka, siam, irkutsk, siberia, mongolia, china,
+                eastAustralia, newGuinea, westAustralia, indonesia, venezuela, peru, brazil, argentina,
+                congo, northAfrica, southAfrica, egypt, eastAfrica, madagascar};
+
         outputText.appendText("Please enter name for Player 1\n");
-        inputText.setOnAction(this);
+        inputText.setOnAction(this);    //calls handle method
+
+        game.setCountryButtons(countryButtons);
     }
 
     private int i = 0;
@@ -42,20 +51,24 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         switch (i) {
             case 0:
                 //gets player 1 name from input
-                game.player1.setName(inputText.getText());
+                game.getPlayer1().setName(inputText.getText());
                 outputText.appendText("Please enter name for Player 2\n");
                 inputText.setText("");
                 i++;
                 break;
 
             case 1: {
-                game.player2.setName(inputText.getText());
-                outputText.appendText("player 1: " + game.player1.getName() + "\nplayer 2: " + game.player2.getName() + "\n");
+                game.getPlayer2().setName(inputText.getText());
+                outputText.appendText("\nPlayer 1: " + game.getPlayer1().getName() +"\tColour: RED\n"
+                        + "Player 2: " + game.getPlayer2().getName() + "\tColour: BLUE\n\n");
                 inputText.setText("");
+
                 allocate.assignPlayerValues(game);
                 printAllocation();
-//                outputText.appendText("Press enter to play game.\n");
-                outputText.appendText(game.current.getName() + ", it is your turn, please enter name of a country.\n");
+
+                outputText.appendText(game.getCurrent().getName() + ", it is your turn, please enter name of a country.\n");
+
+                initialiseButtonColours();
                 gotPlayerNames = true;
                 break;
             }
@@ -80,17 +93,17 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             inputHistory.appendText(inputText.getText() + "\n");
             inputText.setText("");
             game.switchTurn();
-            outputText.appendText(game.current.getName() + ", it is your turn, please enter name of a country.\n");
+            outputText.appendText(game.getCurrent().getName() + ", it is your turn, please enter name of a country.\n");
         }
     }
 
     private void printAllocation() {
-        outputText.appendText(game.player1.getName() + "'s countries: " + game.player1.getCountries().toString() + "\n");
-        outputText.appendText(game.player2.getName() + "'s countries: " + game.player2.getCountries().toString() + "\n");
-        outputText.appendText("Neutral Countries: \n" + game.neutral1.getCountries().toString() + "\n");
-        outputText.appendText(game.neutral2.getCountries().toString() + "\n");
-        outputText.appendText(game.neutral3.getCountries().toString() + "\n");
-        outputText.appendText(game.neutral4.getCountries().toString() + "\n\n");
+        outputText.appendText(game.getPlayer1().getName() + "'s countries: " + game.getPlayer1().getCountries().toString() + "\n");
+        outputText.appendText(game.getPlayer2().getName() + "'s countries: " + game.getPlayer2().getCountries().toString() + "\n");
+        outputText.appendText("Neutral Countries: \n" + game.getNeutral1().getCountries().toString() + "\n");
+        outputText.appendText(game.getNeutral2().getCountries().toString() + "\n");
+        outputText.appendText(game.getNeutral3().getCountries().toString() + "\n");
+        outputText.appendText(game.getNeutral4().getCountries().toString() + "\n\n");
     }
 
     @Override
@@ -104,6 +117,54 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             inputText.setText("");
         }else{
             move();
+        }
+    }
+
+
+    private void changeButtonColour(String countryInput, String playerColour){
+        Pattern pattern = Pattern.compile(countryInput,Pattern.CASE_INSENSITIVE);
+        boolean countryFound = false;
+
+        for (Button button : game.getCountryButtons()){
+            Matcher m = pattern.matcher(button.getId());
+            if(m.find()){
+                button.setStyle("-fx-background-color: " + playerColour);
+                countryFound = true;
+                break;
+            }
+        }
+        if(!countryFound){
+            String buttonName = CountryHashMap.COUNTRY_BUTTON_ALT_NAMES.get(countryInput);
+
+            pattern = Pattern.compile(buttonName,Pattern.CASE_INSENSITIVE);
+            for (Button button : game.getCountryButtons()){
+                Matcher m = pattern.matcher(button.getId());
+                if(m.find()){
+                    button.setStyle("-fx-background-color: " + playerColour);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void initialiseButtonColours(){
+        for(String country: game.getPlayer1().getCountries()){
+            changeButtonColour(country, game.getPlayer1().getColour());
+        }
+        for(String country: game.getPlayer2().getCountries()){
+            changeButtonColour(country, game.getPlayer2().getColour());
+        }
+        for(String country: game.getNeutral1().getCountries()){
+            changeButtonColour(country, game.getNeutral1().getColour());
+        }
+        for(String country: game.getNeutral2().getCountries()){
+            changeButtonColour(country, game.getNeutral2().getColour());
+        }
+        for(String country: game.getNeutral3().getCountries()){
+            changeButtonColour(country, game.getNeutral3().getColour());
+        }
+        for(String country: game.getNeutral4().getCountries()){
+            changeButtonColour(country, game.getNeutral4().getColour());
         }
     }
 }

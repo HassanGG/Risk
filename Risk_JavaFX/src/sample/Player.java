@@ -9,12 +9,12 @@ import java.util.HashMap;
 //colour needs to be added first before we assign colour same with dice
 public class Player {
     private String name;
-    private Color colour;
-    public ArrayList<String> countries = new ArrayList<>();
-    public Dice dice;
+    private String colour;
+    private ArrayList<String> countries = new ArrayList<>();
+    private Dice dice;
 //    private HashMap<String, Integer> armies;
 
-    public Player(String name, Color colour) {
+    public Player(String name, String colour) {
         this.name = name;
         this.colour = colour;
     }
@@ -27,7 +27,7 @@ public class Player {
         this.name = name;
     }
 
-    public Color getColour() {
+    public String getColour() {
         return colour;
     }
 
@@ -35,7 +35,11 @@ public class Player {
         return countries;
     }
 
-//    public HashMap<String, Integer> getArmies() {
+    public Dice getDice() {
+        return dice;
+    }
+
+    //    public HashMap<String, Integer> getArmies() {
 //        return armies;
 //    }
 
