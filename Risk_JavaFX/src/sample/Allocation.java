@@ -6,13 +6,9 @@ import java.util.*;
 public class Allocation {
 
     //hashmap containing all countries and their army values
-    private HashMap<String, Integer> allArmies = new HashMap<>();
+    public HashMap<String, Integer> allArmies = new HashMap<>();
 
     public Allocation() {
-    }
-
-    public HashMap<String, Integer> getAllArmies() {
-        return allArmies;
     }
 
     public void assignPlayerValues(Game game) {
