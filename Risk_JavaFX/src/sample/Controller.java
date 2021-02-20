@@ -66,9 +66,12 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 allocate.assignPlayerValues(game);
                 printAllocation();
 
+
+                decideFirstPlayer();
                 outputText.appendText(game.getCurrent().getName() + ", it is your turn. Enter the country you would like to assign armies to.\nYou have " + numToAssign + "\n");
 
                 initialiseButtonColours();
+
                 state = gameStates.CHOOSE_COUNTRY;
 //                gotPlayerNames = true;
                 break;
@@ -105,9 +108,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 //    }
 
     /* This method assigns armies to the player each turn to the country of their choice
-        TODO: ask what country they would like to assign armies to
-        TODO: ask how many of their armies they would like to assign
-        TODO: if they assigned less than they have ask again what country and so on**/
+        TODO: Move inputHistory appending to the event handler and remove wherever else*/
 
     private final int DEFAULT_NUM_ARMIES = 3;
     int numToAssign = DEFAULT_NUM_ARMIES;
@@ -213,6 +214,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     inputHistory.appendText(inputText.getText() + "\n");
                     parseInput();
                     inputText.setText("");
+
                     break;
 //                case MOVE_SETUP:
 //                    move();
@@ -279,6 +281,34 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }
         for(String country: game.getNeutral4().getCountries()){
             changeButtonColour(country, game.getNeutral4().getColour());
+        }
+    }
+
+
+
+    private void decideFirstPlayer(){
+        int player1Roll = game.getPlayer1().getDice().rollDice();
+        int player2Roll = game.getPlayer2().getDice().rollDice();
+
+
+        if(player1Roll > player2Roll){
+            game.setCurrent(game.getPlayer1());
+            outputText.appendText(game.getPlayer1().getName() + " rolled: " + player1Roll + "\n");
+            outputText.appendText(game.getPlayer2().getName() + " rolled: " + player2Roll + "\n");
+            outputText.appendText(game.getPlayer1().getName() + " rolled higher than " + game.getPlayer2().getName() + ", " +
+                    game.getPlayer1().getName() + " goes first.\n\n");
+        }else if(player1Roll < player2Roll){
+            game.setCurrent(game.getPlayer2());
+            outputText.appendText(game.getPlayer1().getName() + " rolled: " + player1Roll + "\n");
+            outputText.appendText(game.getPlayer2().getName() + " rolled: " + player2Roll + "\n");
+            outputText.appendText(game.getPlayer2().getName() + " rolled higher than " + game.getPlayer1().getName() + ", " +
+                    game.getPlayer2().getName() + " goes first.\n\n");
+        }else{
+            outputText.appendText(game.getPlayer1().getName() + " rolled: " + player1Roll + "\n");
+            outputText.appendText(game.getPlayer2().getName() + " rolled: " + player2Roll + "\n");
+            outputText.appendText(game.getPlayer1().getName() + " tied with " + game.getPlayer2().getName() + ", " +
+                    " roll again.\n\n");
+            decideFirstPlayer();
         }
     }
 }

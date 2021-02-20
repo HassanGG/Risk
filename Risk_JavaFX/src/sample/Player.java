@@ -12,7 +12,7 @@ public class Player {
     private String name;
     private String colour;
     private ArrayList<String> countries = new ArrayList<>();
-    private Dice dice;
+    private Dice dice = new Dice();
 //    private HashMap<String, Integer> armies;
 
     public Player(String name, String colour) {

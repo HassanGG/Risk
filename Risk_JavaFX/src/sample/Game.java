@@ -32,6 +32,10 @@ public class Game {
         return current;
     }
 
+    public void setCurrent(Player current) {
+        this.current = current;
+    }
+
     public Player getNeutral1() {
         return neutral1;
     }
