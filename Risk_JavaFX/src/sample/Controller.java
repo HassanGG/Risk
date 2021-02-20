@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextAlignment;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -66,8 +68,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 inputText.setText("");
 
                 allocate.assignPlayerValues(game);
-                player1Colour.setText(game.getPlayer1().getName() + " -> RED");
-                player2Colour.setText(game.getPlayer2().getName() + " -> BLUE");
+                initButtonText();
+
                 decideFirstPlayer();
                 outputText.appendText(game.getCurrent().getName() + ", it is your turn. Enter the country you would like to assign armies to.\nYou have " + numToAssign + "\n");
 
@@ -141,10 +143,13 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             return;
         }
 
+        //TODO: change individual button text
         allocate.allArmies.put(chosenCountry, currAmount + amount);
+        updateButtonText();
         numToAssign -= amount;
         if(numToAssign <= 0) {
             numToAssign = DEFAULT_NUM_ARMIES;
+            outputText.appendText("You have assigned all of your armies.\n\n");
             inputText.setText("");
             chosenCountry = "";
             game.switchTurn();
@@ -178,9 +183,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 case PLAYER_NAMES:
                     assignNames();
                     break;
-//                case MOVE_SETUP:
-//                    move();
-//                    break;
                 case CHOOSE_COUNTRY:
                     pickCountry(game.getCurrent());
                     break;
@@ -189,14 +191,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     break;
             }
         }
-
-//        if(!gotPlayerNames){
-//            inputHistory.appendText(inputText.getText() + "\n");
-//            parseInput();
-//            inputText.setText("");
-//        }else{
-//            move();
-//        }
     }
 
 
@@ -273,5 +267,16 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     " roll again.\n\n");
             decideFirstPlayer();
         }
+    }
+
+    private void initButtonText(){
+        for(int index = 0 ; index < Constants.COUNTRY_NAMES.length; index++){
+            game.countryButtons[index].setText(String.valueOf(allocate.allArmies.get(Constants.COUNTRY_NAMES[index])));
+        }
+    }
+
+    private void updateButtonText(){
+        int index = CountryHashMap.getIndexOfCountry(chosenCountry);
+        game.countryButtons[index].setText(String.valueOf(allocate.allArmies.get(Constants.COUNTRY_NAMES[index])));
     }
 }
