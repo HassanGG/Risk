@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.net.URL;
@@ -25,6 +26,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     @FXML private TextArea outputText;
     @FXML public TextField inputText;
     @FXML private TextArea inputHistory;
+    @FXML private Label player1Colour, player2Colour;
 
     private Boolean gotPlayerNames = false;
 
@@ -47,7 +49,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     private int i = 0;
-    private void parseInput() {
+    private void assignNames() {
         switch (i) {
             case 0:
                 //gets player 1 name from input
@@ -64,54 +66,24 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 inputText.setText("");
 
                 allocate.assignPlayerValues(game);
-                printAllocation();
-
-
+                player1Colour.setText(game.getPlayer1().getName() + " -> RED");
+                player2Colour.setText(game.getPlayer2().getName() + " -> BLUE");
                 decideFirstPlayer();
                 outputText.appendText(game.getCurrent().getName() + ", it is your turn. Enter the country you would like to assign armies to.\nYou have " + numToAssign + "\n");
 
                 initialiseButtonColours();
 
                 state = gameStates.CHOOSE_COUNTRY;
-//                gotPlayerNames = true;
                 break;
             }
         }
     }
 
-    //currently move is not being used
-
-//    private void move() {
-//        int index = CountryHashMap.getIndexOfCountry(inputText.getText());
-//
-//        if(index == -1){
-//            outputText.appendText("Enter valid country.\n");
-//            inputText.setText("");
-//        }else{
-//            //prints the adjacent countries
-//            outputText.appendText("Country Name: " + Constants.COUNTRY_NAMES[index] + "\n");
-//            outputText.appendText("Continent: " + Constants.CONTINENT_NAMES[Constants.CONTINENT_IDS[index]] + "\n");
-//            outputText.appendText("Adjacent Countries: \n");
-//            for(int i = 0; i < Constants.ADJACENT[index].length; i++){
-//                outputText.appendText("\t" + Constants.COUNTRY_NAMES[Constants.ADJACENT[index][i]] + "\n");
-//            }
-//
-//            outputText.appendText("\n");
-//            inputHistory.appendText(inputText.getText() + "\n");
-//
-//            //handles armies per turn
-//            outputText.appendText(game.getCurrent().getName() + ", it is your turn. Enter the country you would like to assign armies to.\nYou have " + numToAssign + "\n");
-//            assignArmies(game.getCurrent());
-//            inputText.setText("");
-//            //here
-//        }
-//    }
-
-    /* This method assigns armies to the player each turn to the country of their choice
-        TODO: Move inputHistory appending to the event handler and remove wherever else*/
 
     private final int DEFAULT_NUM_ARMIES = 3;
     int numToAssign = DEFAULT_NUM_ARMIES;
+
+    //this checks if the player owns any continents and then assigns the correct number of armies this turn.
     private void assignArmies(Player player) {
         Boolean[] ownedContinent = player.ownedContinents().clone();
         //adds value of continent owned to value of turn
@@ -145,20 +117,23 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             //if country is valid change chosen country and change game state
             chosenCountry = Constants.COUNTRY_NAMES[index];
             state = gameStates.SELECT_AMOUNT_ARMIES;
-            inputHistory.appendText(inputText.getText()  +"\n");
             inputText.setText("");
             outputText.appendText("Enter the amount of armies you would like to assign to this country. Current number left: " + numToAssign + "\n");
         }
 
     }
 
-    private void askAmount(Player player) {
-        int amount = Integer.parseInt(inputText.getText());
+    private void askAmount() {
+        int amount;
         int currAmount = allocate.allArmies.get(chosenCountry);
-        if(!inputText.getText().matches(".*\\d.*")) {
+
+        if(!inputText.getText().matches("[0-9]+") ) {
             outputText.appendText("Enter an integer value \n");
+            inputText.setText("");
             return;
         }
+
+        amount = Integer.parseInt(inputText.getText());
 
         if(amount > numToAssign) {
             outputText.appendText("You entered a value too big.\n");
@@ -170,34 +145,23 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         numToAssign -= amount;
         if(numToAssign <= 0) {
             numToAssign = DEFAULT_NUM_ARMIES;
-            inputHistory.appendText(inputText.getText() + "\n");
             inputText.setText("");
             chosenCountry = "";
             game.switchTurn();
             state = gameStates.CHOOSE_COUNTRY;
-//            outputText.appendText(game.getCurrent().getName() + " it is your turn, Enter the country you would like to assign armies to.\n");
             assignArmies(game.getCurrent());
             return;
         }
 
         if(numToAssign > 0) {
             state = gameStates.CHOOSE_COUNTRY;
+            outputText.appendText("You assigned " + amount + " armies you have " + numToAssign + " left.\n");
             outputText.appendText("What country would you like to assign the rest of your armies to?\n");
-            inputHistory.appendText(inputText.getText() + "\n");
             inputText.setText("");
         }
 
     }
 
-
-    private void printAllocation() {
-        outputText.appendText(game.getPlayer1().getName() + "'s countries: " + game.getPlayer1().getCountries().toString() + "\n");
-        outputText.appendText(game.getPlayer2().getName() + "'s countries: " + game.getPlayer2().getCountries().toString() + "\n");
-        outputText.appendText("Neutral Countries: \n" + game.getNeutral1().getCountries().toString() + "\n");
-        outputText.appendText(game.getNeutral2().getCountries().toString() + "\n");
-        outputText.appendText(game.getNeutral3().getCountries().toString() + "\n");
-        outputText.appendText(game.getNeutral4().getCountries().toString() + "\n\n");
-    }
 
     //this enum holds the functions that the player is able to initiate
     enum gameStates {PLAYER_NAMES, MOVE_SETUP,CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES}
@@ -205,16 +169,14 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         //checks if invalid input first
+        inputHistory.appendText(inputText.getText() + "\n");
         if(inputText.getText().isBlank()) {
             outputText.appendText("Enter valid input\n");
             inputText.setText("");
         } else {
             switch (state) {
                 case PLAYER_NAMES:
-                    inputHistory.appendText(inputText.getText() + "\n");
-                    parseInput();
-                    inputText.setText("");
-
+                    assignNames();
                     break;
 //                case MOVE_SETUP:
 //                    move();
@@ -223,10 +185,11 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     pickCountry(game.getCurrent());
                     break;
                 case SELECT_AMOUNT_ARMIES:
-                    askAmount(game.getCurrent());
+                    askAmount();
                     break;
             }
         }
+
 //        if(!gotPlayerNames){
 //            inputHistory.appendText(inputText.getText() + "\n");
 //            parseInput();

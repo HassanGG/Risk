@@ -13,7 +13,6 @@ public class Player {
     private String colour;
     private ArrayList<String> countries = new ArrayList<>();
     private Dice dice = new Dice();
-//    private HashMap<String, Integer> armies;
 
     public Player(String name, String colour) {
         this.name = name;
@@ -21,6 +20,7 @@ public class Player {
     }
 
     //method that checks if player owns continent
+    //TODO: thest thsi
     public Boolean[] ownedContinents() {
         //in order: N.America, Europe, Asia, Australia, S. America, Africa
         Boolean[] owns = new Boolean[6];

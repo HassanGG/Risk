@@ -60,8 +60,8 @@ public class Game {
         return countryButtons;
     }
 
-    public void setCountryButtons(Button[] countryButtonsss) {
-        this.countryButtons = countryButtonsss;
+    public void setCountryButtons(Button[] countryButtons) {
+        this.countryButtons = countryButtons;
     }
 
     public void switchTurn(){

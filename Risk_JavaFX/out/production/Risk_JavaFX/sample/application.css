@@ -1,5 +1,6 @@
 .root{
     -fx-background-color: #5089FA;
+
 }
 
 .button{
@@ -23,4 +24,18 @@
     -fx-text-fill: #ffffff;
     -fx-border-width: 2px;
     -fx-border-color: #000000;
+}
+
+#player1Colour {
+    -fx-background-color: #ff0000;
+    -fx-background-radius: 50;
+    -fx-text-alignment: center;
+    -fx-text-fill: #ffffff;
+}
+
+#player2Colour {
+    -fx-background-color: #0000ff;
+    -fx-background-radius: 50;
+    -fx-text-alignment: center;
+    -fx-text-fill: #ffffff;
 }
