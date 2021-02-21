@@ -12,7 +12,7 @@ public class Player {
     private String name;
     private String colour;
     private ArrayList<String> countries = new ArrayList<>();
-    private ArrayList<String> cardHand = new ArrayList<>();
+    public ArrayList<String> cardHand = new ArrayList<>();
     private Dice dice = new Dice();
 
     public Player(String name, String colour) {

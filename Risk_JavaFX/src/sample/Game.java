@@ -4,14 +4,16 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Game {
     private Player player1;
     private Player player2;
     private Player current;
     private Player neutral1, neutral2, neutral3, neutral4;
-    private enum cardTypes {INFANTRY, CAVALRY, ARTILLERY}
+    public enum cardTypes {INFANTRY, CAVALRY, ARTILLERY}
     private ArrayList<String> deck = new ArrayList<>();
     private HashMap<String, cardTypes> cardValues = new HashMap<>();
     Button[] countryButtons;
@@ -27,6 +29,30 @@ public class Game {
 
         setCards();
         current = player1;
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+
+
+        System.out.println(game.deck.size());
+        System.out.println(game.deck.size());
+        for(int i = 0; i < 21; i++) {
+            game.drawCard(game.getPlayer1());
+            game.drawCard(game.getPlayer2());
+        }
+
+        System.out.println(game.getPlayer1().cardHand.toString());
+        System.out.println(game.getPlayer2().cardHand.toString());
+        System.out.println(game.deck.size());
+    }
+
+    //draws a card removes it from deck and adds to to player's hand
+    public void drawCard(Player player) {
+        Random rand = new Random();
+        int random = rand.nextInt(deck.size());
+        player.cardHand.add(deck.get(random));
+        deck.remove(random);
     }
 
     public Player getPlayer1() {
@@ -82,8 +108,9 @@ public class Game {
     }
 
 
+    //this abomination adds all cards to hashmap of card types
     private void setCards() {
-        //I need help
+
         cardValues.put(Constants.COUNTRY_NAMES[0], cardTypes.CAVALRY);
         cardValues.put(Constants.COUNTRY_NAMES[1], cardTypes.ARTILLERY);
         cardValues.put(Constants.COUNTRY_NAMES[2], cardTypes.ARTILLERY);
@@ -126,6 +153,8 @@ public class Game {
         cardValues.put(Constants.COUNTRY_NAMES[39], cardTypes.INFANTRY);
         cardValues.put(Constants.COUNTRY_NAMES[40], cardTypes.ARTILLERY);
         cardValues.put(Constants.COUNTRY_NAMES[41], cardTypes.INFANTRY);
+
+        deck.addAll(Arrays.asList(Constants.COUNTRY_NAMES));
     }
 
 }

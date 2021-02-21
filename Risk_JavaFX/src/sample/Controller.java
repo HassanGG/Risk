@@ -101,6 +101,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     String chosenCountry;
+    //takes what country the player typed and validates and stores it for askAmount (which is next called :) )
     private void pickCountry(Player player) {
 
         int index = CountryHashMap.getIndexOfCountry(inputText.getText());
@@ -125,6 +126,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     }
 
+    //pickCountry already asked player so it just gets the amount and validates it and then changes the amount of armies in the hashmap
     private void askAmount() {
         int amount;
         int currAmount = allocate.allArmies.get(chosenCountry);
@@ -143,7 +145,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             return;
         }
 
-        //TODO: change individual button text
         allocate.allArmies.put(chosenCountry, currAmount + amount);
         updateButtonText();
         numToAssign -= amount;
@@ -169,7 +170,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
 
     //this enum holds the functions that the player is able to initiate
-    enum gameStates {PLAYER_NAMES, MOVE_SETUP,CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES}
+    enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES}
     gameStates state = gameStates.PLAYER_NAMES;
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -194,6 +195,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
 
+    //changes colours of buttons to suit what the player's colours are
     private void changeButtonColour(String countryInput, String playerColour){
         Pattern pattern = Pattern.compile(countryInput,Pattern.CASE_INSENSITIVE);
         boolean countryFound = false;
@@ -220,6 +222,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }
     }
 
+    //This just changes the button colours to players colour.
     private void initialiseButtonColours(){
         for(String country: game.getPlayer1().getCountries()){
             changeButtonColour(country, game.getPlayer1().getColour());
@@ -242,7 +245,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
 
-
+    //Whoeveer rolls higher goes first, sets game.current to winner.
     private void decideFirstPlayer(){
         int player1Roll = game.getPlayer1().getDice().rollDice();
         int player2Roll = game.getPlayer2().getDice().rollDice();
@@ -269,12 +272,14 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }
     }
 
+    //Sets the text of each button to the value of armies on that country
     private void initButtonText(){
         for(int index = 0 ; index < Constants.COUNTRY_NAMES.length; index++){
             game.countryButtons[index].setText(String.valueOf(allocate.allArmies.get(Constants.COUNTRY_NAMES[index])));
         }
     }
 
+    // same as initButtonText but for one country during a turn.
     private void updateButtonText(){
         int index = CountryHashMap.getIndexOfCountry(chosenCountry);
         game.countryButtons[index].setText(String.valueOf(allocate.allArmies.get(Constants.COUNTRY_NAMES[index])));
