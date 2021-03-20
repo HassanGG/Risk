@@ -49,7 +49,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     //this enum holds the functions that the player is able to initiate
-    enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES}
+    enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES, ASSIGN_NEUTRAL}
     gameStates state = gameStates.PLAYER_NAMES;
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -68,6 +68,9 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     break;
                 case SELECT_AMOUNT_ARMIES:
                     askAmount();
+                    break;
+                case ASSIGN_NEUTRAL:
+                    assignNeutral();
                     break;
             }
         }
@@ -136,7 +139,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             //if the player does not have the country they inputted be mad
             if(!player.getCountries().contains(Constants.COUNTRY_NAMES[index])) {
                 System.out.println(Constants.COUNTRY_NAMES[index]);
-                outputText.appendText("Enter a country that you own please.\n");
+                outputText.appendText("Enter a country that " + player.getName() + " owns please.\n");
                 inputText.setText("");
                 return;
             }
@@ -145,7 +148,11 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             chosenCountry = Constants.COUNTRY_NAMES[index];
             state = gameStates.SELECT_AMOUNT_ARMIES;
             inputText.setText("");
-            outputText.appendText("Enter the amount of armies you would like to assign to this country. Current number left: " + numToAssign + "\n");
+
+            if(player == game.getPlayer1() || player == game.getPlayer2()){
+                outputText.appendText("Enter the amount of armies you would like to assign to this country. Current number left: " + numToAssign + "\n");
+            }
+
         }
 
     }
@@ -191,6 +198,18 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }
 
     }
+
+    private void assignNeutral(){
+        outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName());
+        
+
+    }
+
+    private void neutralArmyAssign(){
+
+    }
+
+
 
     //changes colours of buttons to suit what the player's colours are
     private void changeButtonColour(String countryInput, String playerColour){

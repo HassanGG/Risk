@@ -11,7 +11,7 @@ import java.util.Random;
 public class Game {
     private Player player1;
     private Player player2;
-    private Player current;
+    private Player current, currentNeutral;
     private Player neutral1, neutral2, neutral3, neutral4;
     public enum cardTypes {INFANTRY, CAVALRY, ARTILLERY}
     private ArrayList<String> deck = new ArrayList<>();
@@ -22,13 +22,14 @@ public class Game {
     public Game() {
         player1 = new Player("player1", "#ff0000");     //RED
         player2 = new Player("player2", "#0000ff");     //BLUE
-        neutral1 = new Player("neutral 1", "#ffff00");  //YELLOW
-        neutral2 = new Player("neutral 2", "#00ff00");  //GREEN
-        neutral3 = new Player("neutral 3", "#ff00ff");  //MAGENTA
-        neutral4 = new Player("neutral 4", "#ffffff");  //WHITE
+        neutral1 = new Player("Neutral 1", "#ffff00");  //YELLOW
+        neutral2 = new Player("Neutral 2", "#00ff00");  //GREEN
+        neutral3 = new Player("Neutral 3", "#ff00ff");  //MAGENTA
+        neutral4 = new Player("Neutral 4", "#ffffff");  //WHITE
 
         setCards();
         current = player1;
+        currentNeutral = neutral1;
     }
 
     public static void main(String[] args) {
@@ -67,6 +68,10 @@ public class Game {
         return current;
     }
 
+    public Player getCurrentNeutral() {
+        return currentNeutral;
+    }
+
     public void setCurrent(Player current) {
         this.current = current;
     }
@@ -91,6 +96,18 @@ public class Game {
         return current == player1;
     }
 
+    public boolean n1Turn(){
+        return currentNeutral == neutral1;
+    }
+
+    public boolean n2Turn(){
+        return currentNeutral == neutral2;
+    }
+
+    public boolean n3Turn(){
+        return currentNeutral == neutral3;
+    }
+
     public Button[] getCountryButtons() {
         return countryButtons;
     }
@@ -104,6 +121,18 @@ public class Game {
             current = player2;
         }else{
             current = player1;
+        }
+    }
+
+    public void switchNeutral(){
+        if(n1Turn()){
+            currentNeutral = neutral2;
+        }else if(n2Turn()){
+            currentNeutral = neutral3;
+        }else if(n3Turn()){
+            currentNeutral = neutral4;
+        }else{
+            currentNeutral = neutral1;
         }
     }
 

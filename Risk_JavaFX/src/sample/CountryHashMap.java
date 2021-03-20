@@ -78,7 +78,6 @@ public class CountryHashMap {
             Matcher m = pattern.matcher(country);
             if (m.find()) {
                 index = Arrays.asList(countries).indexOf(country);
-                System.out.println("bruh");
                 foundIndex = true;
             }
         }
@@ -90,7 +89,6 @@ public class CountryHashMap {
                 Matcher m = pattern.matcher(key);
                 if (m.find()) {
                     index = CountryHashMap.COUNTRY_INDEX.get(key);
-                    System.out.println("damn");
                 }
             }
         }
