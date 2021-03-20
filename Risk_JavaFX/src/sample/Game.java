@@ -4,10 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class Game {
     private Player player1;
@@ -204,12 +201,35 @@ public class Game {
         }
     }
 
-    public boolean isAdjacent(int attackingIndex, int defendingIndex){
-        for(int i = 0; i < Constants.ADJACENT[attackingIndex].length; i++){
-            if(Constants.ADJACENT[attackingIndex][i] == defendingIndex){
+    public boolean isAdjacent(int firstCountryIndex, int secondCountryIndex){
+        for(int i = 0; i < Constants.ADJACENT[firstCountryIndex].length; i++){
+            if(Constants.ADJACENT[firstCountryIndex][i] == secondCountryIndex){
                 return true;
             }
         }
+        return false;
+    }
+
+
+    private Set<Integer> adjacentCountries = new HashSet<>();
+    public boolean isConnected(int senderIndex, int receiverIndex){
+        int[] senderAdjacent = Constants.ADJACENT[senderIndex];
+
+        adjacentCountries.add(senderIndex);
+        for (int j : senderAdjacent) {
+            if (!adjacentCountries.contains(j)) {
+                adjacentCountries.add(j);
+                if (countryButtons[j].getStyle().equals(countryButtons[senderIndex].getStyle())) {
+                    if (CountryHashMap.getIndexOfCountry(countryButtons[j].getId()) == receiverIndex) {
+                        adjacentCountries.clear();
+                        return true;
+                    } else {
+                        return isConnected(j, receiverIndex);
+                    }
+                }
+            }
+        }
+
         return false;
     }
 }

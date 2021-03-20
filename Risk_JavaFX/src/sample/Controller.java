@@ -49,7 +49,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     //this enum holds the functions that the player is able to initiate
     enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES, ASSIGN_NEUTRAL, CHOOSE_ATTACKER,
-        CHOOSE_DEFENDER, ATTACK_PHASE,CHOOSE_FORTIFY}
+        CHOOSE_DEFENDER, ATTACK_PHASE, CHOOSE_FORTIFY_SENDER, CHOOSE_FORTIFY_RECEIVER, FORTIFY_PHASE}
     gameStates state = gameStates.PLAYER_NAMES;
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -62,9 +62,11 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             switch (state) {
                 case PLAYER_NAMES:
                     assignNames();
+
                     break;
                 case CHOOSE_COUNTRY:
                     pickCountry(game.getCurrent());
+
                     break;
                 case SELECT_AMOUNT_ARMIES:
                     askAmount();
@@ -82,7 +84,15 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 case ATTACK_PHASE:
                     playerAttack();
                     break;
-                case CHOOSE_FORTIFY:
+                case CHOOSE_FORTIFY_SENDER:
+                    chooseFortifySender();
+                    break;
+                case CHOOSE_FORTIFY_RECEIVER:
+                    chooseFortifyReceiver();
+                    break;
+                case FORTIFY_PHASE:
+                    playerFortify();
+                    break;
 
 
             }
@@ -274,7 +284,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
         int dice_num = Integer.parseInt(inputText.getText());
 
-        System.out.println(dice_num);
+
         if(!(dice_num >= 0 && dice_num <= max_dice)){
             outputText.appendText("Enter valid dice count.\n");
             inputText.setText("");
@@ -380,14 +390,112 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         inputString = inputString.replaceAll("\\s","");
         inputString = inputString.toLowerCase();
         if(inputString.equals("skip")){
-            outputText.appendText(game.getCurrent().getName() + " choose a country fortify.\n");
-            inputText.setText("");
-            state = gameStates.CHOOSE_FORTIFY;
+
+            if(state == gameStates.CHOOSE_ATTACKER || state == gameStates.CHOOSE_DEFENDER){
+                outputText.appendText(game.getCurrent().getName() + " choose a country that will send troops.\n");
+                inputText.setText("");
+                state = gameStates.CHOOSE_FORTIFY_SENDER;
+            }else{
+                game.switchTurn();
+                outputText.appendText("--- SWITCH TURNS ---\n\n");
+                inputText.setText("");
+                assignArmies(game.getCurrent());
+            }
+
             return true;
         }
         return false;
     }
 
+    int fortifySenderIndex = -1;
+    int fortifyReceiverIndex = -1;
+    private void chooseFortifySender(){
+        if(skipPhase()){
+            return;
+        }
+
+        int index = CountryHashMap.getIndexOfCountry(inputText.getText());
+
+        if(index == -1){
+            outputText.appendText("Enter valid country.\n");
+            inputText.setText("");
+        }else {
+            if (!game.getCurrent().getCountries().contains(Constants.COUNTRY_NAMES[index])) {
+                outputText.appendText("Enter a country that " + game.getCurrent().getName() + " owns please.\n");
+                inputText.setText("");
+            }else{
+                fortifySenderIndex = index;
+                outputText.appendText(game.getCurrent().getName() + ", choose a country that will receive troops.\n");
+                inputText.setText("");
+
+                state = gameStates.CHOOSE_FORTIFY_RECEIVER;
+            }
+        }
+    }
+
+    private void chooseFortifyReceiver(){
+        if(skipPhase()){
+            return;
+        }
+
+        int index = CountryHashMap.getIndexOfCountry(inputText.getText());
+
+        if(index == -1){
+            outputText.appendText("Enter valid country.\n");
+            inputText.setText("");
+        }else {
+            if (!game.getCurrent().getCountries().contains(Constants.COUNTRY_NAMES[index])) {
+                outputText.appendText("Enter a country that " + game.getCurrent().getName() + " owns please.\n");
+                inputText.setText("");
+            }else{
+                fortifyReceiverIndex = index;
+                outputText.appendText(game.getCurrent().getName() + ", enter the number of received troops.\n");
+                inputText.setText("");
+
+                state = gameStates.FORTIFY_PHASE;
+            }
+        }
+    }
+
+    private void playerFortify(){
+        int senderArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[fortifySenderIndex]);
+        int receiverArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[fortifyReceiverIndex]);
+
+        if(!inputText.getText().matches("[0-9]+") ) {
+            outputText.appendText("Enter an integer value \n");
+            inputText.setText("");
+            return;
+        }
+
+        int input_num = Integer.parseInt(inputText.getText());
+
+        if(!(input_num >= 0 && input_num <= senderArmies - 1)){
+            outputText.appendText("Enter valid number.\n");
+            inputText.setText("");
+            return;
+        }
+
+        if(game.isConnected(fortifySenderIndex,fortifyReceiverIndex)){
+            senderArmies -= input_num;
+            receiverArmies += input_num;
+
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[fortifySenderIndex], senderArmies);
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[fortifyReceiverIndex], receiverArmies);
+
+            updateButtonText(Constants.COUNTRY_NAMES[fortifySenderIndex]);
+            updateButtonText(Constants.COUNTRY_NAMES[fortifyReceiverIndex]);
+
+        }else{
+            outputText.appendText("Cannot fortify because countries are not connected, choose again.\n");
+            inputText.setText("");
+            return;
+        }
+
+        game.switchTurn();
+        outputText.appendText("--- SWITCH TURNS ---\n\n");
+        inputText.setText("");
+        assignArmies(game.getCurrent());
+    }
 
 
     //changes colours of buttons to suit what the player's colours are
