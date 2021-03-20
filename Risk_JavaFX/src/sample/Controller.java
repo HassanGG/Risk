@@ -28,9 +28,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     @FXML private TextArea outputText;
     @FXML public TextField inputText;
     @FXML private TextArea inputHistory;
-    @FXML private Label player1Colour, player2Colour;
-
-    private Boolean gotPlayerNames = false;
+    @FXML private Label player1Colour, player2Colour, neutral1Colour, neutral2Colour, neutral3Colour, neutral4Colour;
 
     Allocation allocate = new Allocation();
     Game game = new Game();
@@ -48,6 +46,31 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         inputText.setOnAction(this);    //calls handle method
 
         game.setCountryButtons(countryButtons);
+    }
+
+    //this enum holds the functions that the player is able to initiate
+    enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES}
+    gameStates state = gameStates.PLAYER_NAMES;
+    @Override
+    public void handle(ActionEvent actionEvent) {
+        //checks if invalid input first
+        inputHistory.appendText(inputText.getText() + "\n");
+        if(inputText.getText().isBlank()) {
+            outputText.appendText("Enter valid input\n");
+            inputText.setText("");
+        } else {
+            switch (state) {
+                case PLAYER_NAMES:
+                    assignNames();
+                    break;
+                case CHOOSE_COUNTRY:
+                    pickCountry(game.getCurrent());
+                    break;
+                case SELECT_AMOUNT_ARMIES:
+                    askAmount();
+                    break;
+            }
+        }
     }
 
     private int i = 0;
@@ -112,6 +135,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }else{
             //if the player does not have the country they inputted be mad
             if(!player.getCountries().contains(Constants.COUNTRY_NAMES[index])) {
+                System.out.println(Constants.COUNTRY_NAMES[index]);
                 outputText.appendText("Enter a country that you own please.\n");
                 inputText.setText("");
                 return;
@@ -167,33 +191,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }
 
     }
-
-
-    //this enum holds the functions that the player is able to initiate
-    enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES}
-    gameStates state = gameStates.PLAYER_NAMES;
-    @Override
-    public void handle(ActionEvent actionEvent) {
-        //checks if invalid input first
-        inputHistory.appendText(inputText.getText() + "\n");
-        if(inputText.getText().isBlank()) {
-            outputText.appendText("Enter valid input\n");
-            inputText.setText("");
-        } else {
-            switch (state) {
-                case PLAYER_NAMES:
-                    assignNames();
-                    break;
-                case CHOOSE_COUNTRY:
-                    pickCountry(game.getCurrent());
-                    break;
-                case SELECT_AMOUNT_ARMIES:
-                    askAmount();
-                    break;
-            }
-        }
-    }
-
 
     //changes colours of buttons to suit what the player's colours are
     private void changeButtonColour(String countryInput, String playerColour){

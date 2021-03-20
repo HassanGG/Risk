@@ -22,9 +22,9 @@ public class Game {
     public Game() {
         player1 = new Player("player1", "#ff0000");     //RED
         player2 = new Player("player2", "#0000ff");     //BLUE
-        neutral1 = new Player("neutral 1", "#ffffff");  //WHITE
-        neutral2 = new Player("neutral 2", "#ffffff");  //WHITE
-        neutral3 = new Player("neutral 3", "#ffffff");  //WHITE
+        neutral1 = new Player("neutral 1", "#ffff00");  //YELLOW
+        neutral2 = new Player("neutral 2", "#00ff00");  //GREEN
+        neutral3 = new Player("neutral 3", "#ff00ff");  //MAGENTA
         neutral4 = new Player("neutral 4", "#ffffff");  //WHITE
 
         setCards();

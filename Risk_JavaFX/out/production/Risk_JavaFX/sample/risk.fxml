@@ -465,8 +465,12 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Label fx:id="player1Colour" layoutX="14.0" layoutY="574.0" prefHeight="25.0" prefWidth="139.0" text="        Player 1 -&gt; RED" textAlignment="CENTER" />
-            <Label fx:id="player2Colour" layoutX="14.0" layoutY="601.0" prefHeight="25.0" prefWidth="139.0" text="        Player 2 -&gt; BLUE" textAlignment="CENTER" />
+            <Label fx:id="player1Colour" layoutX="14.0" layoutY="465.0" prefHeight="25.0" prefWidth="139.0" text="        Player 1 -&gt; RED" textAlignment="CENTER" />
+            <Label fx:id="player2Colour" layoutX="14.0" layoutY="491.0" prefHeight="25.0" prefWidth="139.0" text="        Player 2 -&gt; BLUE" textAlignment="CENTER" />
+            <Label fx:id="neutral1Colour" layoutX="14.0" layoutY="514.0" prefHeight="25.0" prefWidth="139.0" text="    Neutral 1 -&gt; YELLOW" textAlignment="CENTER" />
+            <Label fx:id="neutral2Colour" layoutX="14.0" layoutY="540.0" prefHeight="25.0" prefWidth="139.0" text="     Neutral 2 -&gt; GREEN" textAlignment="CENTER" />
+            <Label fx:id="neutral4Colour" layoutX="14.0" layoutY="592.0" prefHeight="25.0" prefWidth="139.0" text="     Neutral 4 -&gt; WHITE" textAlignment="CENTER" />
+            <Label fx:id="neutral3Colour" layoutX="14.0" layoutY="567.0" prefHeight="25.0" prefWidth="139.0" text="  Neutral 3 -&gt; MAGENTA" textAlignment="CENTER" />
          </children>
       </Pane>
       <Pane fx:id="infoPane" layoutY="616.0" prefHeight="184.0" prefWidth="1000.0">

@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.scene.control.Button;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
@@ -10,21 +8,21 @@ import java.util.regex.Pattern;
 
 public class CountryHashMap {
     public static final HashMap<String,Integer> COUNTRY_INDEX = new HashMap<>() {{
-        put("east US", 5);
-        put("east united states", 5);
-        put("west US", 6);
-        put("west united states", 6);
-        put("c America", 7);
+        put("eastUS", 5);
+        put("eastunitedstates", 5);
+        put("westUS", 6);
+        put("westunitedstates", 6);
+        put("cAmerica", 7);
         put("britain", 9);
-        put("west eu", 10);
-        put("south eu", 11);
-        put("north eu", 13);
-        put("mid East", 18);
-        put("east Australia", 28);
-        put("west Australia", 30);
-        put("north Africa", 37);
-        put("south Africa", 38);
-        put("east Africa", 40);
+        put("westeu", 10);
+        put("southeu", 11);
+        put("northeu", 13);
+        put("midEast", 18);
+        put("eastAustralia", 28);
+        put("westAustralia", 30);
+        put("northAfrica", 37);
+        put("southAfrica", 38);
+        put("eastAfrica", 40);
     }};
 
     public static final HashMap<String, String> COUNTRY_BUTTON_ALT_NAMES = new HashMap<>() {{
@@ -62,13 +60,25 @@ public class CountryHashMap {
     public static int getIndexOfCountry(String regex){
         int index = -1;
         boolean foundIndex = false;
+        regex = regex.replaceAll("\\s","");
         Pattern pattern = Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
-        String[] countries = Constants.COUNTRY_NAMES;
+        String[] countries = new String[Constants.NUM_COUNTRIES];
+
+        String name;
+
+        for (int i=0; i<Constants.NUM_COUNTRIES; i++) {
+            name = Constants.COUNTRY_NAMES[i];
+            name = name.toLowerCase();
+            name = name.replaceAll("\\s","");
+
+            countries[i] = name;
+        }
 
         for(String country : countries){
             Matcher m = pattern.matcher(country);
             if (m.find()) {
                 index = Arrays.asList(countries).indexOf(country);
+                System.out.println("bruh");
                 foundIndex = true;
             }
         }
@@ -80,6 +90,7 @@ public class CountryHashMap {
                 Matcher m = pattern.matcher(key);
                 if (m.find()) {
                     index = CountryHashMap.COUNTRY_INDEX.get(key);
+                    System.out.println("damn");
                 }
             }
         }
