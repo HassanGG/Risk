@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -188,4 +189,27 @@ public class Game {
         deck.addAll(Arrays.asList(Constants.COUNTRY_NAMES));
     }
 
+    public int attack(Player attacker,TextArea outputText){
+        Dice die = new Dice();
+        int attackerRoll = attacker.getDice().rollDice();
+        int defenderRoll = die.rollDice();
+
+        outputText.appendText(attacker.getName() + " rolled: " + attackerRoll + "\n");
+        outputText.appendText( "Defender rolled: " + defenderRoll + "\n");
+
+        if(attackerRoll > defenderRoll){
+            return 1;
+        }else {
+            return -1;
+        }
+    }
+
+    public boolean isAdjacent(int attackingIndex, int defendingIndex){
+        for(int i = 0; i < Constants.ADJACENT[attackingIndex].length; i++){
+            if(Constants.ADJACENT[attackingIndex][i] == defendingIndex){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.text.TextAlignment;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,7 +48,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     //this enum holds the functions that the player is able to initiate
-    enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES, ASSIGN_NEUTRAL}
+    enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES, ASSIGN_NEUTRAL, CHOOSE_ATTACKER,
+        CHOOSE_DEFENDER, ATTACK_PHASE,CHOOSE_FORTIFY}
     gameStates state = gameStates.PLAYER_NAMES;
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -72,6 +72,19 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 case ASSIGN_NEUTRAL:
                     assignNeutral();
                     break;
+                case CHOOSE_ATTACKER:
+//                    playerAttack();
+                    chooseAttackingCountry();
+                    break;
+                case CHOOSE_DEFENDER:
+                    chooseDefendingCountry();
+                    break;
+                case ATTACK_PHASE:
+                    playerAttack();
+                    break;
+                case CHOOSE_FORTIFY:
+
+
             }
         }
     }
@@ -177,8 +190,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             return;
         }
 
-        allocate.allArmies.put(chosenCountry, currAmount + amount);
-        updateButtonText();
+        allocate.allArmies.replace(chosenCountry, currAmount + amount);
+        updateButtonText(chosenCountry);
         numToAssign -= amount;
         if(numToAssign <= 0) {
             numToAssign = DEFAULT_NUM_ARMIES;
@@ -187,6 +200,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             chosenCountry = "";
             outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
             state = gameStates.ASSIGN_NEUTRAL;
+//            outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+//            state = gameStates.ATTACK_PHASE;
             return;
         }
 
@@ -206,9 +221,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             if(!game.n1Turn()) {
                 outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
             }
-
         }
-
     }
 
     private final int NEUTRAL_ARMY_PER_TURN = 1;
@@ -218,17 +231,161 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
         if(noError) {
             int currAmount = allocate.allArmies.get(chosenCountry);
-            allocate.allArmies.put(chosenCountry, currAmount + NEUTRAL_ARMY_PER_TURN);
-            updateButtonText();
+            allocate.allArmies.replace(chosenCountry, currAmount + NEUTRAL_ARMY_PER_TURN);
+            updateButtonText(chosenCountry);
 
             if(game.n4Turn()) {
-                game.switchTurn();
-                state = gameStates.CHOOSE_COUNTRY;
-                if(game.n4Turn()) outputText.appendText("\n");
-                assignArmies(game.getCurrent());
+//                game.switchTurn();
+//                state = gameStates.CHOOSE_COUNTRY;
+                state = gameStates.CHOOSE_ATTACKER;
+//                if(game.n4Turn()) outputText.appendText("\n");
+                if(game.n4Turn()) outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+//                assignArmies(game.getCurrent());
             }
         }
         return noError;
+    }
+
+    private int attackCountryIndex = -1;
+    private int defendingCountryIndex = -1;
+
+    private void playerAttack(){
+
+        int attackArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[attackCountryIndex]);
+        int defendArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[defendingCountryIndex]);
+        int max_dice = 0;
+
+        if(attackArmies == 1){
+            outputText.appendText("Attacking country cannot attack if it only has 1 army.\n");
+            return;
+        }else if(attackArmies == 2){
+            max_dice = 1;
+        }else if(attackArmies == 3){
+            max_dice = 2;
+        }else if(attackArmies >= 4){
+            max_dice = 3;
+        }
+
+        if(!inputText.getText().matches("[0-9]+") ) {
+            outputText.appendText("Enter an integer value \n");
+            inputText.setText("");
+            return;
+        }
+
+        int dice_num = Integer.parseInt(inputText.getText());
+
+        System.out.println(dice_num);
+        if(!(dice_num >= 0 && dice_num <= max_dice)){
+            outputText.appendText("Enter valid dice count.\n");
+            inputText.setText("");
+            return;
+        }
+
+        int dice_used;
+        for(dice_used = 0; dice_used < dice_num; dice_used++){
+
+            if(game.attack(game.getCurrent(),outputText) == 1){
+                outputText.appendText("Defender lost.\n\n");
+                defendArmies--;
+            }else {
+                outputText.appendText(game.getCurrent().getName() + " lost.\n\n");
+                attackArmies--;
+            }
+            if(defendArmies == 0 || attackArmies == 0){
+                break;
+            }
+        }
+
+        if(defendArmies == 0){
+            attackArmies -= dice_num - dice_used;
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[attackCountryIndex], attackArmies);
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[defendingCountryIndex], dice_num - dice_used);
+            changeButtonColour(Constants.COUNTRY_NAMES[defendingCountryIndex], game.getCurrent().getColour());
+        }else if(attackArmies == 0){
+            defendArmies -= dice_num - dice_used;
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[attackCountryIndex], dice_num - dice_used);
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[defendingCountryIndex], defendArmies);
+            changeButtonColour(Constants.COUNTRY_NAMES[attackCountryIndex], game.getCurrent().getColour());
+        }else{
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[attackCountryIndex], attackArmies);
+            allocate.allArmies.replace(Constants.COUNTRY_NAMES[defendingCountryIndex], defendArmies);
+        }
+
+
+        updateButtonText(Constants.COUNTRY_NAMES[attackCountryIndex]);
+        updateButtonText(Constants.COUNTRY_NAMES[defendingCountryIndex]);
+
+        inputText.setText("");
+
+        outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+        state = gameStates.CHOOSE_ATTACKER;
+    }
+
+    private void chooseAttackingCountry(){
+        if(skipPhase()){
+            return;
+        }
+
+        int index = CountryHashMap.getIndexOfCountry(inputText.getText());
+
+        if(index == -1){
+            outputText.appendText("Enter valid country.\n");
+            inputText.setText("");
+        }else {
+            if (!game.getCurrent().getCountries().contains(Constants.COUNTRY_NAMES[index])) {
+                outputText.appendText("Enter a country that " + game.getCurrent().getName() + " owns please.\n");
+                inputText.setText("");
+            }else{
+                attackCountryIndex = index;
+                outputText.appendText(game.getCurrent().getName() + ", choose a country you want to attack.\n");
+                inputText.setText("");
+
+                state = gameStates.CHOOSE_DEFENDER;
+            }
+        }
+    }
+
+    private void chooseDefendingCountry(){
+        if(skipPhase()){
+            return;
+        }
+
+        int index = CountryHashMap.getIndexOfCountry(inputText.getText());
+
+        if(index == -1){
+            outputText.appendText("Enter valid country.\n");
+        }else {
+
+            if (game.getCurrent().getCountries().contains(Constants.COUNTRY_NAMES[index])) {
+                outputText.appendText("Enter a country that " + game.getCurrent().getName() + " does not own please.\n");
+                inputText.setText("");
+            }else{
+                defendingCountryIndex = index;
+                if(!game.isAdjacent(attackCountryIndex,defendingCountryIndex)){
+                    outputText.appendText("Please choose countries that are next to each other.\n\n");
+                    outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+                    inputText.setText("");
+                    state = gameStates.CHOOSE_ATTACKER;
+                }else{
+                    outputText.appendText("Enter number of dice you want to use.\n\n");
+                    state = gameStates.ATTACK_PHASE;
+                    inputText.setText("");
+                }
+            }
+        }
+    }
+
+    private boolean skipPhase(){
+        String inputString = inputText.getText();
+        inputString = inputString.replaceAll("\\s","");
+        inputString = inputString.toLowerCase();
+        if(inputString.equals("skip")){
+            outputText.appendText(game.getCurrent().getName() + " choose a country fortify.\n");
+            inputText.setText("");
+            state = gameStates.CHOOSE_FORTIFY;
+            return true;
+        }
+        return false;
     }
 
 
@@ -318,7 +475,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     // same as initButtonText but for one country during a turn.
-    private void updateButtonText(){
+    private void updateButtonText(String chosenCountry){
         int index = CountryHashMap.getIndexOfCountry(chosenCountry);
         game.countryButtons[index].setText(String.valueOf(allocate.allArmies.get(Constants.COUNTRY_NAMES[index])));
     }
