@@ -108,6 +108,8 @@ public class Game {
         return currentNeutral == neutral3;
     }
 
+    public boolean n4Turn() {return currentNeutral == neutral4;}
+
     public Button[] getCountryButtons() {
         return countryButtons;
     }

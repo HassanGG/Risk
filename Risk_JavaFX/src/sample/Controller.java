@@ -128,32 +128,33 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     String chosenCountry;
     //takes what country the player typed and validates and stores it for askAmount (which is next called :) )
-    private void pickCountry(Player player) {
+    private Boolean pickCountry(Player player) {
 
         int index = CountryHashMap.getIndexOfCountry(inputText.getText());
 
         if(index == -1){
             outputText.appendText("Enter valid country.\n");
             inputText.setText("");
+            return false;
         }else{
             //if the player does not have the country they inputted be mad
             if(!player.getCountries().contains(Constants.COUNTRY_NAMES[index])) {
-                System.out.println(Constants.COUNTRY_NAMES[index]);
                 outputText.appendText("Enter a country that " + player.getName() + " owns please.\n");
                 inputText.setText("");
-                return;
+                return false;
             }
 
             //if country is valid change chosen country and change game state
             chosenCountry = Constants.COUNTRY_NAMES[index];
-            state = gameStates.SELECT_AMOUNT_ARMIES;
             inputText.setText("");
 
             if(player == game.getPlayer1() || player == game.getPlayer2()){
                 outputText.appendText("Enter the amount of armies you would like to assign to this country. Current number left: " + numToAssign + "\n");
+                state = gameStates.SELECT_AMOUNT_ARMIES;
             }
-
+            return true;
         }
+
 
     }
 
@@ -184,9 +185,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             outputText.appendText("You have assigned all of your armies.\n\n");
             inputText.setText("");
             chosenCountry = "";
-            game.switchTurn();
-            state = gameStates.CHOOSE_COUNTRY;
-            assignArmies(game.getCurrent());
+            outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
+            state = gameStates.ASSIGN_NEUTRAL;
             return;
         }
 
@@ -200,13 +200,35 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     private void assignNeutral(){
-        outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName());
-        
+        Boolean noError = neutralArmyAssign();
+        if(noError) {
+            game.switchNeutral();
+            if(!game.n1Turn()) {
+                outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
+            }
+
+        }
 
     }
 
-    private void neutralArmyAssign(){
+    private final int NEUTRAL_ARMY_PER_TURN = 1;
+    private Boolean neutralArmyAssign(){
+        //This sets chosenCountry to whatever neutral wants
+        Boolean noError = pickCountry(game.getCurrentNeutral());
 
+        if(noError) {
+            int currAmount = allocate.allArmies.get(chosenCountry);
+            allocate.allArmies.put(chosenCountry, currAmount + NEUTRAL_ARMY_PER_TURN);
+            updateButtonText();
+
+            if(game.n4Turn()) {
+                game.switchTurn();
+                state = gameStates.CHOOSE_COUNTRY;
+                if(game.n4Turn()) outputText.appendText("\n");
+                assignArmies(game.getCurrent());
+            }
+        }
+        return noError;
     }
 
 
