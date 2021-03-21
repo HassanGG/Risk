@@ -232,4 +232,10 @@ public class Game {
 
         return false;
     }
+
+    public void invadeCountry(int attackerIndex, int defenderIndex){
+
+    }
+
+
 }

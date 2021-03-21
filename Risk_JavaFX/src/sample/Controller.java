@@ -488,6 +488,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }else{
             outputText.appendText("Cannot fortify because countries are not connected, choose again.\n");
             inputText.setText("");
+            state = gameStates.CHOOSE_FORTIFY_SENDER;
             return;
         }
 
