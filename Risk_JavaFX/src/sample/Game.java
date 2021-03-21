@@ -14,6 +14,12 @@ public class Game {
     public enum cardTypes {INFANTRY, CAVALRY, ARTILLERY}
     private ArrayList<String> deck = new ArrayList<>();
     private HashMap<String, cardTypes> cardValues = new HashMap<>();
+
+    public ArrayList<Player> getAllNeutrals() {
+        return allNeutrals;
+    }
+
+    private ArrayList<Player> allNeutrals = new ArrayList<>();
     Button[] countryButtons;
 
 
@@ -24,6 +30,11 @@ public class Game {
         neutral2 = new Player("Neutral 2", "#00ff00");  //GREEN
         neutral3 = new Player("Neutral 3", "#ff00ff");  //MAGENTA
         neutral4 = new Player("Neutral 4", "#ffffff");  //WHITE
+
+        allNeutrals.add(neutral1);
+        allNeutrals.add(neutral2);
+        allNeutrals.add(neutral3);
+        allNeutrals.add(neutral4);
 
         setCards();
         current = player1;
@@ -53,7 +64,6 @@ public class Game {
         player.cardHand.add(deck.get(random));
         deck.remove(random);
     }
-
     public Player getPlayer1() {
         return player1;
     }
@@ -125,15 +135,28 @@ public class Game {
     }
 
     public void switchNeutral(){
-        if(n1Turn()){
-            currentNeutral = neutral2;
-        }else if(n2Turn()){
-            currentNeutral = neutral3;
-        }else if(n3Turn()){
-            currentNeutral = neutral4;
-        }else{
-            currentNeutral = neutral1;
+
+        for(int i = 0; i < allNeutrals.size(); i++) {
+            if(currentNeutral == allNeutrals.get(i)) {
+
+                if(i == allNeutrals.size() - 1) {
+                    currentNeutral = allNeutrals.get(0);
+                } else {
+                    currentNeutral = allNeutrals.get(i + 1);
+                }
+                break;
+            }
         }
+
+//        if(n1Turn()){
+//            currentNeutral = neutral2;
+//        }else if(n2Turn()){
+//            currentNeutral = neutral3;
+//        }else if(n3Turn()){
+//            currentNeutral = neutral4;
+//        }else{
+//            currentNeutral = neutral1;
+//        }
     }
 
 
@@ -233,8 +256,43 @@ public class Game {
         return false;
     }
 
-    public void invadeCountry(int attackerIndex, int defenderIndex){
+    //returns true if gameover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public Boolean invadeCountry(int attackerIndex, int defenderIndex){
+        //attacking country is always current player
+        Player attacking = this.getCurrent(), defending = null;
+        String attackingCountry = Constants.COUNTRY_NAMES[attackerIndex];
+        String defendingCountry = Constants.COUNTRY_NAMES[defenderIndex];
 
+        //finds defending country
+        if(this.getPlayer2().getCountries().contains(defendingCountry)) {
+            defending = this.getPlayer2();
+        } else if(this.getPlayer1().getCountries().contains(defendingCountry)) {
+            defending = this.getPlayer1();
+        } else {
+            for(Player neutral : getAllNeutrals()) {
+                if(neutral.getCountries().contains(defendingCountry)) {
+                    defending = neutral;
+                    break;
+                }
+            }
+        }
+
+
+
+        assert defending != null;
+        defending.getCountries().remove(defendingCountry);
+        attacking.getCountries().add(defendingCountry);
+
+        if(defending.getCountries().isEmpty()) {
+            if(defending == this.getPlayer2() || defending == this.getPlayer1()) {
+                //gameover
+                return true;
+            } else {
+                this.getAllNeutrals().remove(defending);
+            }
+        }
+        //returns if gameover
+        return false;
     }
 
 

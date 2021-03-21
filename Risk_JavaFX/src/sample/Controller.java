@@ -49,7 +49,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     //this enum holds the functions that the player is able to initiate
     enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES, ASSIGN_NEUTRAL, CHOOSE_ATTACKER,
-        CHOOSE_DEFENDER, ATTACK_PHASE, CHOOSE_FORTIFY_SENDER, CHOOSE_FORTIFY_RECEIVER, FORTIFY_PHASE}
+        CHOOSE_DEFENDER, ATTACK_PHASE, CHOOSE_FORTIFY_SENDER, CHOOSE_FORTIFY_RECEIVER, FORTIFY_PHASE, GAME_OVER}
     gameStates state = gameStates.PLAYER_NAMES;
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -93,10 +93,17 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 case FORTIFY_PHASE:
                     playerFortify();
                     break;
+                case GAME_OVER:
+                    gameOver();
+                    break;
 
 
             }
         }
+    }
+
+    private void gameOver() {
+        outputText.appendText(game.getCurrent().getName() + " won, congratulations!");
     }
 
     private int i = 0;
@@ -142,6 +149,11 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             if(ownedContinent[i]) {
                 numToAssign += Constants.CONTINENT_VALUES[i];
             }
+        }
+
+        //3 is the magic number
+        if(player.getCountries().size() > 3 && (player.getCountries().size() / 3) > 3) {
+            numToAssign += ((player.getCountries().size() / 3) - 3);
         }
 
         outputText.appendText(game.getCurrent().getName() + ", you have " + numToAssign + " armies to assign this round, what country would you like to assign armies to?\n");
@@ -208,10 +220,14 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             outputText.appendText("You have assigned all of your armies.\n\n");
             inputText.setText("");
             chosenCountry = "";
-            outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
-            state = gameStates.ASSIGN_NEUTRAL;
-//            outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
-//            state = gameStates.ATTACK_PHASE;
+
+            if(game.getAllNeutrals().isEmpty()) {
+                state = gameStates.CHOOSE_ATTACKER;
+                outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+            } else {
+                state = gameStates.ASSIGN_NEUTRAL;
+                outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
+            }
             return;
         }
 
@@ -225,11 +241,20 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     private void assignNeutral(){
-        Boolean noError = neutralArmyAssign();
-        if(noError) {
-            game.switchNeutral();
-            if(!game.n1Turn()) {
-                outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
+        if(game.getAllNeutrals().isEmpty()) {
+            state = gameStates.CHOOSE_ATTACKER;
+            outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+        } else {
+            Boolean noError = neutralArmyAssign();
+            if(noError) {
+                game.switchNeutral();
+
+//            if(!game.n1Turn()) {
+//                outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
+//            }
+                if(!(game.getAllNeutrals().get(0) == game.getCurrentNeutral())) {
+                    outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
+                }
             }
         }
     }
@@ -244,13 +269,9 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             allocate.allArmies.replace(chosenCountry, currAmount + NEUTRAL_ARMY_PER_TURN);
             updateButtonText(chosenCountry);
 
-            if(game.n4Turn()) {
-//                game.switchTurn();
-//                state = gameStates.CHOOSE_COUNTRY;
+            if((game.getAllNeutrals().get(game.getAllNeutrals().size() - 1) == game.getCurrentNeutral())) {
                 state = gameStates.CHOOSE_ATTACKER;
-//                if(game.n4Turn()) outputText.appendText("\n");
-                if(game.n4Turn()) outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
-//                assignArmies(game.getCurrent());
+                outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
             }
         }
         return noError;
@@ -267,6 +288,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
         if(attackArmies == 1){
             outputText.appendText("Attacking country cannot attack if it only has 1 army.\n");
+            state = gameStates.CHOOSE_ATTACKER;
             return;
         }else if(attackArmies == 2){
             max_dice = 1;
@@ -311,6 +333,13 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             allocate.allArmies.replace(Constants.COUNTRY_NAMES[attackCountryIndex], attackArmies);
             allocate.allArmies.replace(Constants.COUNTRY_NAMES[defendingCountryIndex], dice_num - dice_used);
             changeButtonColour(Constants.COUNTRY_NAMES[defendingCountryIndex], game.getCurrent().getColour());
+            if(game.invadeCountry(attackCountryIndex, defendingCountryIndex)) {
+                state = gameStates.GAME_OVER;
+                updateButtonText(Constants.COUNTRY_NAMES[attackCountryIndex]);
+                updateButtonText(Constants.COUNTRY_NAMES[defendingCountryIndex]);
+                inputText.setText("");
+                return;
+            }
         }else if(attackArmies == 0){
             defendArmies -= dice_num - dice_used;
             allocate.allArmies.replace(Constants.COUNTRY_NAMES[attackCountryIndex], dice_num - dice_used);
@@ -326,9 +355,9 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         updateButtonText(Constants.COUNTRY_NAMES[defendingCountryIndex]);
 
         inputText.setText("");
-
-        outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
         state = gameStates.CHOOSE_ATTACKER;
+        outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+
     }
 
     private void chooseAttackingCountry(){
