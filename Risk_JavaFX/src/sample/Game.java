@@ -234,15 +234,19 @@ public class Game {
     }
 
 
-    private Set<Integer> adjacentCountries = new HashSet<>();
+    public Set<Integer> adjacentCountries = new HashSet<>();
     public boolean isConnected(int senderIndex, int receiverIndex){
         int[] senderAdjacent = Constants.ADJACENT[senderIndex];
 
-        adjacentCountries.add(senderIndex);
+//        adjacentCountries.add(senderIndex);
         for (int j : senderAdjacent) {
+            System.out.println(Constants.COUNTRY_NAMES[j]);
             if (!adjacentCountries.contains(j)) {
+                System.out.println("----- " + Constants.COUNTRY_NAMES[j]);
+                System.out.println("----------- " + Constants.COUNTRY_NAMES[senderIndex]);
                 adjacentCountries.add(j);
                 if (countryButtons[j].getStyle().equals(countryButtons[senderIndex].getStyle())) {
+                    System.out.println("======== Match Colour");
                     if (CountryHashMap.getIndexOfCountry(countryButtons[j].getId()) == receiverIndex) {
                         adjacentCountries.clear();
                         return true;
@@ -252,7 +256,6 @@ public class Game {
                 }
             }
         }
-
         return false;
     }
 

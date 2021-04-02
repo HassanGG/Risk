@@ -49,7 +49,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     //this enum holds the functions that the player is able to initiate
     enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES, ASSIGN_NEUTRAL, CHOOSE_ATTACKER,
-        CHOOSE_DEFENDER, ATTACK_PHASE, CHOOSE_FORTIFY_SENDER, CHOOSE_FORTIFY_RECEIVER, FORTIFY_PHASE, GAME_OVER}
+        CHOOSE_DEFENDER, ATTACK_PHASE, SEND_REINFORCEMENTS, CHOOSE_FORTIFY_SENDER, CHOOSE_FORTIFY_RECEIVER, FORTIFY_PHASE, GAME_OVER}
     gameStates state = gameStates.PLAYER_NAMES;
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -62,11 +62,9 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             switch (state) {
                 case PLAYER_NAMES:
                     assignNames();
-
                     break;
                 case CHOOSE_COUNTRY:
                     pickCountry(game.getCurrent());
-
                     break;
                 case SELECT_AMOUNT_ARMIES:
                     askAmount();
@@ -75,7 +73,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     assignNeutral();
                     break;
                 case CHOOSE_ATTACKER:
-//                    playerAttack();
                     chooseAttackingCountry();
                     break;
                 case CHOOSE_DEFENDER:
@@ -83,6 +80,9 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     break;
                 case ATTACK_PHASE:
                     playerAttack();
+                    break;
+                case SEND_REINFORCEMENTS:
+                    reinforceInvadedCountry(attackCountryIndex,defendingCountryIndex);
                     break;
                 case CHOOSE_FORTIFY_SENDER:
                     chooseFortifySender();
@@ -103,7 +103,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     private void gameOver() {
-        outputText.appendText(game.getCurrent().getName() + " won, congratulations!");
+        inputText.setText("");
+        outputText.appendText("\n" + game.getCurrent().getName() + " won, congratulations!");
     }
 
     private int i = 0;
@@ -223,6 +224,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
             if(game.getAllNeutrals().isEmpty()) {
                 state = gameStates.CHOOSE_ATTACKER;
+                outputText.appendText("\n-----ATTACK PHASE-----\n\n");
                 outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
             } else {
                 state = gameStates.ASSIGN_NEUTRAL;
@@ -249,9 +251,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             if(noError) {
                 game.switchNeutral();
 
-//            if(!game.n1Turn()) {
-//                outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
-//            }
                 if(!(game.getAllNeutrals().get(0) == game.getCurrentNeutral())) {
                     outputText.appendText(game.getCurrent().getName() + ", reinforce a country owned by " + game.getCurrentNeutral().getName() + "\n");
                 }
@@ -271,6 +270,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
             if((game.getAllNeutrals().get(game.getAllNeutrals().size() - 1) == game.getCurrentNeutral())) {
                 state = gameStates.CHOOSE_ATTACKER;
+                outputText.appendText("\n-----ATTACK PHASE-----\n\n");
                 outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
             }
         }
@@ -285,6 +285,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         int attackArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[attackCountryIndex]);
         int defendArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[defendingCountryIndex]);
         int max_dice = 0;
+        boolean invaded = false;
 
         if(attackArmies == 1){
             outputText.appendText("Attacking country cannot attack if it only has 1 army.\n");
@@ -305,7 +306,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         }
 
         int dice_num = Integer.parseInt(inputText.getText());
-
 
         if(!(dice_num >= 0 && dice_num <= max_dice)){
             outputText.appendText("Enter valid dice count.\n");
@@ -340,6 +340,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 inputText.setText("");
                 return;
             }
+            invaded = true;
+
         }else if(attackArmies == 0){
             defendArmies -= dice_num - dice_used;
             allocate.allArmies.replace(Constants.COUNTRY_NAMES[attackCountryIndex], dice_num - dice_used);
@@ -355,10 +357,64 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         updateButtonText(Constants.COUNTRY_NAMES[defendingCountryIndex]);
 
         inputText.setText("");
+
+        if (invaded){
+            state = gameStates.SEND_REINFORCEMENTS;
+            outputText.appendText("How many do you want to send to " + Constants.COUNTRY_NAMES[defendingCountryIndex] + "?\n");
+        }else{
+            state = gameStates.CHOOSE_ATTACKER;
+            outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
+        }
+    }
+
+    private void reinforceInvadedCountry(int senderIndex, int receiverIndex){
+        int input_num = isValidArmyNum(senderIndex);
+
+        if(input_num == -1){
+            return;
+        }
+
+        updateArmies(senderIndex,receiverIndex,input_num);
+
+        inputText.setText("");
         state = gameStates.CHOOSE_ATTACKER;
         outputText.appendText(game.getCurrent().getName() + " pick your attacking country.\n");
-
     }
+
+    private int isValidArmyNum(int senderIndex){
+        int senderArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[senderIndex]);
+
+        if(!inputText.getText().matches("[0-9]+") ) {
+            outputText.appendText("Enter an integer value \n");
+            inputText.setText("");
+            return -1;
+        }
+
+        int input_num = Integer.parseInt(inputText.getText());
+
+        if(!(input_num >= 0 && input_num <= senderArmies - 1)){
+            outputText.appendText("Enter valid number.\n");
+            inputText.setText("");
+            return -1;
+        }
+
+        return input_num;
+    }
+
+    private void updateArmies(int senderIndex, int receiverIndex, int sentArmies){
+        int senderArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[senderIndex]);
+        int receiverArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[receiverIndex]);
+
+        senderArmies -= sentArmies;
+        receiverArmies += sentArmies;
+
+        allocate.allArmies.replace(Constants.COUNTRY_NAMES[senderIndex], senderArmies);
+        allocate.allArmies.replace(Constants.COUNTRY_NAMES[receiverIndex], receiverArmies);
+
+        updateButtonText(Constants.COUNTRY_NAMES[senderIndex]);
+        updateButtonText(Constants.COUNTRY_NAMES[receiverIndex]);
+    }
+
 
     private void chooseAttackingCountry(){
         if(skipPhase()){
@@ -421,12 +477,13 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         if(inputString.equals("skip")){
 
             if(state == gameStates.CHOOSE_ATTACKER || state == gameStates.CHOOSE_DEFENDER){
+                outputText.appendText("\n-----FORTIFY PHASE-----\n\n");
                 outputText.appendText(game.getCurrent().getName() + " choose a country that will send troops.\n");
                 inputText.setText("");
                 state = gameStates.CHOOSE_FORTIFY_SENDER;
             }else{
                 game.switchTurn();
-                outputText.appendText("--- SWITCH TURNS ---\n\n");
+                outputText.appendText("\n-----SWITCH TURNS-----\n\n");
                 inputText.setText("");
                 assignArmies(game.getCurrent());
             }
@@ -487,42 +544,26 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
     }
 
     private void playerFortify(){
-        int senderArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[fortifySenderIndex]);
-        int receiverArmies = allocate.allArmies.get(Constants.COUNTRY_NAMES[fortifyReceiverIndex]);
+        int input_num = isValidArmyNum(fortifySenderIndex);
 
-        if(!inputText.getText().matches("[0-9]+") ) {
-            outputText.appendText("Enter an integer value \n");
-            inputText.setText("");
-            return;
-        }
-
-        int input_num = Integer.parseInt(inputText.getText());
-
-        if(!(input_num >= 0 && input_num <= senderArmies - 1)){
-            outputText.appendText("Enter valid number.\n");
-            inputText.setText("");
+        if(input_num == -1){
             return;
         }
 
         if(game.isConnected(fortifySenderIndex,fortifyReceiverIndex)){
-            senderArmies -= input_num;
-            receiverArmies += input_num;
-
-            allocate.allArmies.replace(Constants.COUNTRY_NAMES[fortifySenderIndex], senderArmies);
-            allocate.allArmies.replace(Constants.COUNTRY_NAMES[fortifyReceiverIndex], receiverArmies);
-
-            updateButtonText(Constants.COUNTRY_NAMES[fortifySenderIndex]);
-            updateButtonText(Constants.COUNTRY_NAMES[fortifyReceiverIndex]);
-
+            updateArmies(fortifySenderIndex,fortifyReceiverIndex,input_num);
         }else{
             outputText.appendText("Cannot fortify because countries are not connected, choose again.\n");
+            outputText.appendText(game.getCurrent().getName() + " choose a country that will send troops.\n");
             inputText.setText("");
             state = gameStates.CHOOSE_FORTIFY_SENDER;
             return;
         }
 
+        game.adjacentCountries.clear();
+
         game.switchTurn();
-        outputText.appendText("--- SWITCH TURNS ---\n\n");
+        outputText.appendText("\n-----SWITCH TURNS-----\n\n");
         inputText.setText("");
         assignArmies(game.getCurrent());
     }
