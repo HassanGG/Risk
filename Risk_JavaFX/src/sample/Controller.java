@@ -10,6 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.sql.SQLOutput;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,7 +97,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     playerFortify();
                     break;
                 case USE_CARDS:
-
+                    useCards();
                     break;
                 case GAME_OVER:
                     gameOver();
@@ -345,19 +347,24 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 return;
             }
             if(game.deck.contains(Constants.COUNTRY_NAMES[defendingCountryIndex])){
-                String card = game.deck.remove(defendingCountryIndex);
+                String card = Constants.COUNTRY_NAMES[defendingCountryIndex];
+                game.deck.remove(card);
                 game.getCurrent().cardHand.add(card);
 
-                outputText.appendText(card + " is added to your hand.\n");
+                outputText.appendText(card + " is added to your hand. It is a " + game.getCardValues().get(card) + " type.\n");
 
-                switch (game.getCardValues().get(Constants.COUNTRY_NAMES[defendingCountryIndex])){
+                System.out.println(game.getCardValues().get(card));
+                switch (game.getCardValues().get(card)){
                     case INFANTRY:
+                        System.out.println("reached infantry");
                         game.getCurrent().infantryNum++;
                         break;
                     case CAVALRY:
+                        System.out.println("reached cavalry");
                         game.getCurrent().cavalryNum++;
                         break;
                     case ARTILLERY:
+                        System.out.println("reached artillery");
                         game.getCurrent().artilleryNum++;
                         break;
                 }
@@ -380,7 +387,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
         inputText.setText("");
 
-        if (invaded){
+        if (invaded && attackArmies > 1){
             state = gameStates.SEND_REINFORCEMENTS;
             outputText.appendText("How many do you want to send to " + Constants.COUNTRY_NAMES[defendingCountryIndex] + "?\n");
         }else{
@@ -507,7 +514,24 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 game.switchTurn();
                 outputText.appendText("\n-----SWITCH TURNS-----\n\n");
                 inputText.setText("");
-                assignArmies(game.getCurrent());
+
+                //error testing
+                System.out.println(game.getCurrent().getName());
+
+                System.out.println(game.getCurrent().infantryNum);
+                System.out.println(game.getCurrent().cavalryNum);
+                System.out.println(game.getCurrent().artilleryNum);
+                System.out.println(hasHand(game.getCurrent()));
+                if(hasHand(game.getCurrent())){
+                    state = gameStates.USE_CARDS;
+                    numToAssign = DEFAULT_NUM_ARMIES;
+                    outputText.appendText("Your cards are: \n");
+                    outputText.appendText(game.getCurrent().cardHand.toString() + "\n");
+                    outputText.appendText("Enter trio you want play e.g. III (3 Infantry), ICA (One of each type)\n");
+
+                }else{
+                    assignArmies(game.getCurrent());
+                }
             }
 
             return true;
@@ -588,19 +612,25 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         outputText.appendText("\n-----SWITCH TURNS-----\n\n");
         inputText.setText("");
 
+        //error testing
+        outputText.appendText(String.valueOf(game.getCurrent().infantryNum));
+        outputText.appendText(String.valueOf(game.getCurrent().cavalryNum));
+        outputText.appendText(String.valueOf(game.getCurrent().artilleryNum));
+        outputText.appendText(String.valueOf(hasHand(game.getCurrent())));
+        System.out.println(game.getCurrent().infantryNum);
+        System.out.println(game.getCurrent().cavalryNum);
+        System.out.println(game.getCurrent().artilleryNum);
+        System.out.println(hasHand(game.getCurrent()));
         if(hasHand(game.getCurrent())){
             state = gameStates.USE_CARDS;
+            numToAssign = DEFAULT_NUM_ARMIES;
             outputText.appendText("Your cards are: \n");
-            outputText.appendText(game.getCurrent().cardHand.toString() + "\n");
             outputText.appendText(game.getCurrent().cardHand.toString() + "\n");
             outputText.appendText("Enter trio you want play e.g. III (3 Infantry), ICA (One of each type)\n");
 
         }else{
             assignArmies(game.getCurrent());
         }
-
-
-//        assignArmies(game.getCurrent());
     }
 
     private boolean hasHand(Player current){
@@ -610,8 +640,46 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         return current.infantryNum >= 1 && current.cavalryNum >= 1 && current.artilleryNum >= 1;
     }
 
-    private void useCards(){
+    public enum removeType {infantries, cavalries, artilleries}
 
+    private void useCards(){
+        String input = inputText.getText();
+        inputText.setText("");
+
+        input = input.toLowerCase();
+        input = input.replaceAll("\\s","");
+
+        //checks if permutation of cia
+        Pattern pattern = Pattern.compile("^(?!.*a.*a)(?!.*c.*c)(?!.*i.*i)[iac]*$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+
+        //checks the amount to add when using cards and removes the cards from players deck
+        if(input.equals("")) {
+            outputText.appendText("Error with input\n");
+            return;
+        }
+
+        if(matcher.find()) {
+            numToAssign += 10;
+            game.getCurrent().removeCards(removeType.infantries, game, 1);
+            game.getCurrent().removeCards(removeType.cavalries, game, 1);
+            game.getCurrent().removeCards(removeType.artilleries, game, 1);
+
+        } else if(input.equals("iii")) {
+            game.getCurrent().removeCards(removeType.infantries, game, 3);
+            numToAssign += 4;
+        } else if(input.equals("aaa")){
+            game.getCurrent().removeCards(removeType.artilleries, game, 3);
+            numToAssign += 8;
+        } else if(input.equals("ccc")) {
+            game.getCurrent().removeCards(removeType.cavalries, game, 3);
+            numToAssign += 6;
+        } else {
+            outputText.appendText("Error with input\n");
+            return;
+        }
+
+        assignArmies(game.getCurrent());
     }
 
 

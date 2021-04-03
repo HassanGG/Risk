@@ -89,9 +89,46 @@ public class Player {
         return dice;
     }
 
-    //    public HashMap<String, Integer> getArmies() {
-//        return armies;
-//    }
-
+    public void removeCards(Controller.removeType type, Game game, int removeNumTo) {
+        int numtoRemove = removeNumTo;
+        switch (type) {
+            case infantries:
+                for(String card : cardHand) {
+                    if(numtoRemove == 0) {
+                        return;
+                    }
+                    if(game.getCardValues().get(card) == Game.cardTypes.INFANTRY) {
+                        this.cardHand.remove(card);
+                        game.getCurrent().infantryNum -= 1;
+                        numtoRemove--;
+                    }
+                }
+                break;
+            case cavalries:
+                for(String card : cardHand) {
+                    if(numtoRemove == 0) {
+                        return;
+                    }
+                    if(game.getCardValues().get(card) == Game.cardTypes.CAVALRY) {
+                        this.cardHand.remove(card);
+                        game.getCurrent().cavalryNum -= 1;
+                        numtoRemove--;
+                    }
+                }
+                break;
+            case artilleries:
+                for(String card : cardHand) {
+                    if(numtoRemove == 0) {
+                        return;
+                    }
+                    if(game.getCardValues().get(card) == Game.cardTypes.ARTILLERY) {
+                        this.cardHand.remove(card);
+                        game.getCurrent().artilleryNum -= 1;
+                        numtoRemove--;
+                    }
+                }
+                break;
+        }
+    }
 
 }
