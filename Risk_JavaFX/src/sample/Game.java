@@ -12,7 +12,7 @@ public class Game {
     private Player current, currentNeutral;
     private Player neutral1, neutral2, neutral3, neutral4;
     public enum cardTypes {INFANTRY, CAVALRY, ARTILLERY}
-    private ArrayList<String> deck = new ArrayList<>();
+    public ArrayList<String> deck = new ArrayList<>();
     private HashMap<String, cardTypes> cardValues = new HashMap<>();
 
     public ArrayList<Player> getAllNeutrals() {
@@ -147,18 +147,11 @@ public class Game {
                 break;
             }
         }
-
-//        if(n1Turn()){
-//            currentNeutral = neutral2;
-//        }else if(n2Turn()){
-//            currentNeutral = neutral3;
-//        }else if(n3Turn()){
-//            currentNeutral = neutral4;
-//        }else{
-//            currentNeutral = neutral1;
-//        }
     }
 
+    public HashMap<String, cardTypes> getCardValues() {
+        return cardValues;
+    }
 
     //this abomination adds all cards to hashmap of card types
     private void setCards() {

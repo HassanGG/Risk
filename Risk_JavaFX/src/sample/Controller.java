@@ -49,7 +49,8 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
     //this enum holds the functions that the player is able to initiate
     enum gameStates {PLAYER_NAMES, CHOOSE_COUNTRY, SELECT_AMOUNT_ARMIES, ASSIGN_NEUTRAL, CHOOSE_ATTACKER,
-        CHOOSE_DEFENDER, ATTACK_PHASE, SEND_REINFORCEMENTS, CHOOSE_FORTIFY_SENDER, CHOOSE_FORTIFY_RECEIVER, FORTIFY_PHASE, GAME_OVER}
+        CHOOSE_DEFENDER, ATTACK_PHASE, SEND_REINFORCEMENTS, CHOOSE_FORTIFY_SENDER, CHOOSE_FORTIFY_RECEIVER, FORTIFY_PHASE,
+        GAME_OVER, USE_CARDS}
     gameStates state = gameStates.PLAYER_NAMES;
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -92,6 +93,9 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                     break;
                 case FORTIFY_PHASE:
                     playerFortify();
+                    break;
+                case USE_CARDS:
+
                     break;
                 case GAME_OVER:
                     gameOver();
@@ -340,6 +344,24 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
                 inputText.setText("");
                 return;
             }
+            if(game.deck.contains(Constants.COUNTRY_NAMES[defendingCountryIndex])){
+                String card = game.deck.remove(defendingCountryIndex);
+                game.getCurrent().cardHand.add(card);
+
+                outputText.appendText(card + " is added to your hand.\n");
+
+                switch (game.getCardValues().get(Constants.COUNTRY_NAMES[defendingCountryIndex])){
+                    case INFANTRY:
+                        game.getCurrent().infantryNum++;
+                        break;
+                    case CAVALRY:
+                        game.getCurrent().cavalryNum++;
+                        break;
+                    case ARTILLERY:
+                        game.getCurrent().artilleryNum++;
+                        break;
+                }
+            }
             invaded = true;
 
         }else if(attackArmies == 0){
@@ -565,7 +587,31 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
         game.switchTurn();
         outputText.appendText("\n-----SWITCH TURNS-----\n\n");
         inputText.setText("");
-        assignArmies(game.getCurrent());
+
+        if(hasHand(game.getCurrent())){
+            state = gameStates.USE_CARDS;
+            outputText.appendText("Your cards are: \n");
+            outputText.appendText(game.getCurrent().cardHand.toString() + "\n");
+            outputText.appendText(game.getCurrent().cardHand.toString() + "\n");
+            outputText.appendText("Enter trio you want play e.g. III (3 Infantry), ICA (One of each type)\n");
+
+        }else{
+            assignArmies(game.getCurrent());
+        }
+
+
+//        assignArmies(game.getCurrent());
+    }
+
+    private boolean hasHand(Player current){
+        if(current.infantryNum >= 3 || current.cavalryNum >= 3 || current.artilleryNum >= 3){
+            return true;
+        }
+        return current.infantryNum >= 1 && current.cavalryNum >= 1 && current.artilleryNum >= 1;
+    }
+
+    private void useCards(){
+
     }
 
 

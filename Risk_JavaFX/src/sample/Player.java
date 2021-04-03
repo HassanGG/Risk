@@ -14,6 +14,9 @@ public class Player {
     private ArrayList<String> countries = new ArrayList<>();
     public ArrayList<String> cardHand = new ArrayList<>();
     private Dice dice = new Dice();
+    public int infantryNum = 0;
+    public int cavalryNum = 0;
+    public int artilleryNum = 0;
 
     public Player(String name, String colour) {
         this.name = name;
