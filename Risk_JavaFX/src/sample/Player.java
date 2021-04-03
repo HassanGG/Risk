@@ -1,10 +1,12 @@
 package sample;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 
 //player class that contains all information on each player
 //colour needs to be added first before we assign colour same with dice
@@ -93,37 +95,40 @@ public class Player {
         int numtoRemove = removeNumTo;
         switch (type) {
             case infantries:
-                for(String card : cardHand) {
+                for(Iterator<String> ite = cardHand.iterator(); ite.hasNext();){
+                    String card = ite.next();
                     if(numtoRemove == 0) {
                         return;
                     }
                     if(game.getCardValues().get(card) == Game.cardTypes.INFANTRY) {
-                        this.cardHand.remove(card);
+                        ite.remove();
                         game.getCurrent().infantryNum -= 1;
                         numtoRemove--;
                     }
                 }
                 break;
             case cavalries:
-                for(String card : cardHand) {
+                for(Iterator<String> ite = cardHand.iterator(); ite.hasNext();){
+                    String card = ite.next();
                     if(numtoRemove == 0) {
                         return;
                     }
                     if(game.getCardValues().get(card) == Game.cardTypes.CAVALRY) {
-                        this.cardHand.remove(card);
-                        game.getCurrent().cavalryNum -= 1;
+                        ite.remove();
+                        game.getCurrent().infantryNum -= 1;
                         numtoRemove--;
                     }
                 }
                 break;
             case artilleries:
-                for(String card : cardHand) {
+                for(Iterator<String> ite = cardHand.iterator(); ite.hasNext();){
+                    String card = ite.next();
                     if(numtoRemove == 0) {
                         return;
                     }
                     if(game.getCardValues().get(card) == Game.cardTypes.ARTILLERY) {
-                        this.cardHand.remove(card);
-                        game.getCurrent().artilleryNum -= 1;
+                        ite.remove();
+                        game.getCurrent().infantryNum -= 1;
                         numtoRemove--;
                     }
                 }
@@ -131,4 +136,9 @@ public class Player {
         }
     }
 
+    public static void printCards(TextArea outputText, Game game){
+        for(String country : game.getCurrent().cardHand){
+            outputText.appendText(country + ", " + game.getCardValues().get(country) + "\n");
+        }
+    }
 }
