@@ -593,6 +593,7 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
 
 
 
+        game.adjacentCountries.add(fortifySenderIndex);
         if(game.isConnected(fortifySenderIndex,fortifyReceiverIndex)){
             updateArmies(fortifySenderIndex,fortifyReceiverIndex,input_num);
         }else{
@@ -614,7 +615,6 @@ public class Controller implements Initializable, EventHandler<ActionEvent> {
             numToAssign = DEFAULT_NUM_ARMIES;
             outputText.appendText("Your cards are: \n");
             Player.printCards(outputText,game);
-//            outputText.appendText(game.getCurrent().cardHand.toString() + "\n");
             outputText.appendText(game.getCurrent().getName()  + ", enter trio you want play e.g. III (3 Infantry), ICA (One of each type)\n");
 
         }else{

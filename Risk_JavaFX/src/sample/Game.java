@@ -239,7 +239,9 @@ public class Game {
                         adjacentCountries.clear();
                         return true;
                     } else {
-                        return isConnected(j, receiverIndex);
+                        if(isConnected(j, receiverIndex)){
+                            return true;
+                        }
                     }
                 }
             }
