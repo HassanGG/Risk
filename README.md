@@ -8,8 +8,7 @@ This repository contains a version of the boardgame Risk I developed along with 
 - You don't have to enter the name of countries with spacing or capitals.
 - Just type skip, to skip a phase.
   
-  
 ## Showcase
-https://user-images.githubusercontent.com/55018365/131494248-2d8b1b5e-458e-4b82-9474-3321eabdd0b0.mp4
+https://user-images.githubusercontent.com/55018365/131494339-4095df27-089b-4a1b-ade9-7d4fce72fe91.mp4
 
 
