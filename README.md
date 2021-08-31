@@ -10,3 +10,6 @@ This repository contains a version of the boardgame Risk I developed along with 
   
   
 ## Showcase
+https://user-images.githubusercontent.com/55018365/131494248-2d8b1b5e-458e-4b82-9474-3321eabdd0b0.mp4
+
+
